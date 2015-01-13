@@ -1,0 +1,5 @@
+#
+# Docker Upstart and SysVinit configuration file
+#
+export TMPDIR="/opt/majordomus/majord-data/docker/tmp"
+DOCKER_OPTS="-g /opt/majordomus/majord-data/docker/images -r=true -H tcp://0.0.0.0:6001 -H unix:///var/run/docker.sock"
