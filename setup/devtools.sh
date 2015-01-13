@@ -42,3 +42,6 @@ echo 'export GOROOT=/usr/local/go' >> /etc/profile
 echo 'export PATH=$PATH:$GOROOT/bin' >> /etc/profile
 
 rm -rf go1.4*
+
+# back to the origin
+cd $MAJORDOMUS_ROOT
