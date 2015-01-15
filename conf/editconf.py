@@ -36,6 +36,7 @@ delimiter_re = r"\s*=\s*"
 comment_char = "#"
 folded_lines = False
 testing = False
+
 while settings[0][0] == "-" and settings[0] != "--":
 	opt = settings.pop(0)
 	if opt == "-s":

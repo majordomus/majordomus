@@ -47,11 +47,12 @@ if [ "$PUBLIC_IPV6" = "auto" ]; then
 fi
 if [ "$PRIMARY_HOSTNAME" = "auto" ]; then
 	# Generate a probably-unique subdomain under our justtesting.email domain.
-	PRIMARY_HOSTNAME=`echo $PUBLIC_IP | sha1sum | cut -c1-5`.getmajordomus.local
+	PRIMARY_HOSTNAME=`echo $PUBLIC_IP | sha1sum | cut -c1-5`.$DOMAIN_NAME
 fi
 
 # Save the global options in /etc/majord.conf so that standalone tools know where to look for data
 cat > /etc/majord.conf << EOF;
+DOMAIN_NAME=$DOMAIN_NAME
 PRIMARY_HOSTNAME=$PRIMARY_HOSTNAME
 PUBLIC_IP=$PUBLIC_IP
 PUBLIC_IPV6=$PUBLIC_IPV6
