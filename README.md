@@ -1,7 +1,10 @@
-majordomus.dev
+majordomus
 ===
 
-Basic vagrant and server setup
+A tiny PaaS
+---
 
-	bash <(curl -s https://raw.githubusercontent.com/majordomus/majordomus.dev/master/bootstrap.sh)
+Basic setup:
+
+	bash <(curl -s https://raw.githubusercontent.com/majordomus/majordomus/master/bootstrap.sh)
 
