@@ -19,7 +19,9 @@ hide_output apt-get -y upgrade
 apt_install unzip curl sysstat build-essential
 
 # install dev tools if needed
-source setup/devtools.sh
+if [ -z "$DISABLE_DEVTOOLS" ]; then
+	source setup/devtools.sh
+fi
 
 # make sure we are on a defined local
 if [ -z `locale -a | grep en_US.utf8` ]; then
