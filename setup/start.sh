@@ -68,9 +68,11 @@ echo "*** majordomus: installing services"
 echo "***"
 
 source setup/system.sh
+#source setup/dns.sh
 source setup/ssl.sh
 source setup/web.sh
 source setup/docker.sh
+source setup/consul.sh
 
 echo "***"
 echo "*** majordomus: cleanup"
