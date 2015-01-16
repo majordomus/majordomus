@@ -32,8 +32,6 @@ echo 'export PATH=$PATH:/usr/local/bin' >> /etc/profile
 echo 'export PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin' >> /etc/profile
 echo 'gem: --user-install --no-rdoc --no-ri' >> /etc/profile
 
-sudo gem install bundler
-
 # golang 1.4
 cd /tmp
 hide_output wget https://storage.googleapis.com/golang/go1.4.linux-amd64.tar.gz
