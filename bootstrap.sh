@@ -34,4 +34,4 @@ chmod +x $MAJORDOMUS_ROOT/*.sh
 chmod +x $MAJORDOMUS_ROOT/setup/*.sh
 
 # start the setup
-cd $MAJORDOMUS_ROOT && setup/start.sh
+cd $MAJORDOMUS_ROOT && setup/setup.sh
