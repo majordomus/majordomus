@@ -18,9 +18,13 @@ hide_output apt-get -y upgrade
 # install some basic
 apt_install unzip curl sysstat build-essential
 
-# install dev tools if needed
+# always install ruby
+source setup/ruby.sh
+
+# install additional languages if needed
 if [ -z "$DISABLE_DEVTOOLS" ]; then
-	source setup/devtools.sh
+	source setup/golang.sh
+	source setup/nodejs.sh
 fi
 
 # make sure we are on a defined local

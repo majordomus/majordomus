@@ -8,7 +8,6 @@ echo "*** majordomus: installing languages & stacks (ruby,golang,nodejs)"
 echo "***"
 
 # add basic development tools and libraries
-apt_install git-core curl sysstat
 apt_install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libncurses5-dev zlib1g-dev libffi-dev libxslt1-dev libxml2-dev
 
 # ruby 2.2.0
