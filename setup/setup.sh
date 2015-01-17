@@ -16,7 +16,7 @@ hide_output apt-get update
 hide_output apt-get -y upgrade
 
 # install some basic
-apt_install unzip curl sysstat build-essential
+apt_install unzip curl sysstat build-essential git
 
 # always install ruby
 source setup/ruby.sh

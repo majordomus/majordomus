@@ -12,8 +12,6 @@ cd $MAJORDOMUS_ROOT
 source setup/functions.sh # load our functions
 source /etc/majord.conf # load global vars
 
-apt_install git curl sysstat
-
 # * haveged: Provides extra entropy to /dev/random so it doesn't stall
 #	         when generating random numbers for private keys (e.g. during
 #	         ldns-keygen).
