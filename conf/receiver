@@ -11,9 +11,15 @@
 #  -F contents=@- \
 #  --silent $URL
 
-echo "----> Receiving repository $1 ..."
 REPO=/opt/majordomus/majord-data/git/$1
 
+echo "----> Receiving repository $1 ..."
 mkdir -p $REPO && cat | tar -x -C $REPO
 
 echo "----> Stored new/updated files in $REPO" 
+
+if [ -f "$REPO/Dockerfile" ]; then
+	echo "----> Dockerfile"
+else
+	echo "----> Something else"
+fi
