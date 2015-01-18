@@ -3,6 +3,7 @@
 # majordomus root location
 MAJORDOMUS_ROOT=/opt/majordomus/majord
 MAJORDOMUS_DATA=/opt/majordomus/majord-data
+MAJORDOMUS_USER=majord
 
 # functions used in the scripts
 source setup/functions.sh
@@ -59,7 +60,7 @@ CSR_COUNTRY=$CSR_COUNTRY
 EOF
 
 # create a majordomus user next
-sudo su -c "useradd majord -s /bin/bash -m -g sudo"
+sudo su -c "useradd $MAJORDOMUS_USER -s /bin/bash -m -g sudo"
 sudo chpasswd << 'END'
 majord:majord
 END
@@ -83,6 +84,7 @@ source setup/ssl.sh
 source setup/web.sh
 source setup/docker.sh
 source setup/consul.sh
+source setup/buildenv.sh
 
 echo "***"
 echo "*** majordomus: cleanup"

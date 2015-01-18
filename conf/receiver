@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#URL=http://requestb.in/rlh4znrl
+#echo "----> Posting to $URL ..."
+#curl \
+#  -X 'POST' \
+#  -F "repository=$1" \
+#  -F "revision=$2" \
+#  -F "username=$3" \
+#  -F "fingerprint=$4" \
+#  -F contents=@- \
+#  --silent $URL
+
+echo "----> Receiving repository $1 ..."
+REPO=/opt/majordomus/majord-data/git/$1
+
+mkdir -p $REPO && cat | tar -x -C $REPO
+
+echo "----> Stored new/updated files in $REPO" 

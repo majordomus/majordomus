@@ -29,7 +29,7 @@ rm -rf /tmp/ruby*
 echo '# ruby 2.2.0' >> /etc/profile
 echo 'export PATH=$PATH:/usr/local/bin' >> /etc/profile
 echo 'export PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin' >> /etc/profile
-echo 'gem: --user-install --no-rdoc --no-ri' >> /etc/profile
+#echo 'gem: --user-install --no-rdoc --no-ri' >> /etc/profile
 
 # back to the origin
 cd $MAJORDOMUS_ROOT
