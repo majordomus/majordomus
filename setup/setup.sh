@@ -18,15 +18,6 @@ hide_output apt-get -y upgrade
 # install some basic
 apt_install unzip curl sysstat build-essential git
 
-# always install ruby
-source setup/ruby.sh
-
-# install additional languages if needed
-if [ -z "$DISABLE_DEVTOOLS" ]; then
-	source setup/golang.sh
-	source setup/nodejs.sh
-fi
-
 # make sure we are on a defined local
 if [ -z `locale -a | grep en_US.utf8` ]; then
     # generate locale if not exists
@@ -66,6 +57,21 @@ PRIVATE_IP=$PRIVATE_IP
 PRIVATE_IPV6=$PRIVATE_IPV6
 CSR_COUNTRY=$CSR_COUNTRY
 EOF
+
+# create a majordomus user next
+sudo su -c "useradd majord -s /bin/bash -m -g sudo"
+sudo chpasswd << 'END'
+majord:majord
+END
+
+# always install ruby
+source setup/ruby.sh
+
+# install additional languages if needed
+if [ -z "$DISABLE_DEVTOOLS" ]; then
+	source setup/golang.sh
+	source setup/nodejs.sh
+fi
 
 echo "***"
 echo "*** majordomus: installing services"

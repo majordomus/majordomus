@@ -22,4 +22,21 @@ if [ -f "/etc/majord.conf" ]; then
 	source /etc/majord.conf # load global vars
 fi
 
-source setup/consul.sh
+#cd /tmp
+#hide_output wget https://raw.githubusercontent.com/majordomus/gitreceive/master/gitreceive
+#sudo chmod +x gitreceive
+#sudo mv gitreceive /usr/local/bin/gitreceive
+
+#sudo gitreceive init
+
+
+git clone https://github.com/majordomus/buildstep.git --branch master --single-branch $MAJORDOMUS_ROOT/bin/buildstep
+
+cd $MAJORDOMUS_ROOT/bin/buildstep
+make build
+
+# mkdir -p /tmp/push4 && cat | tar -x -C /tmp/push4
+# mkdir -p /tmp/test && cat | tar cC /tmp/test . | ./opt/majordomus/majord/bin/buildstep/buildstep myapp
+
+# back to the origin
+cd $MAJORDOMUS_ROOT
