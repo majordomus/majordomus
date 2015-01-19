@@ -13,9 +13,13 @@ if [ ! -L "/usr/local/bin/gitreceive" ]; then
 fi
 
 if [ ! -d "/home/git" ]; then
-	sudo gitreceive init
 	sudo mkdir -p $MAJORDOMUS_DATA/git
 	sudo chmod 777 $MAJORDOMUS_DATA/git
+	
+	sudo gitreceive init
+	
+	# replace the default script with our receiver script
+	sudo rm /home/git/receiver
 	sudo ln -s $MAJORDOMUS_ROOT/conf/receiver /home/git/receiver
 fi
 
