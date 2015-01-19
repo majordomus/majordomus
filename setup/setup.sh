@@ -31,32 +31,10 @@ export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 
 # load global vars
-source /etc/majord.conf
- 
-# Automatic configuration, e.g. as used in our Vagrant configuration.
-if [ "$PUBLIC_IP" = "auto" ]; then
-	# Use a public API to get our public IP address, or fall back to local network configuration.
-	PUBLIC_IP=$(get_publicip_from_web_service 4 || get_default_privateip 4)
+if [ ! -f "/etc/majord.conf" ]; then
+	sudo cp conf/majord.conf /etc/majord.conf	
 fi
-if [ "$PUBLIC_IPV6" = "auto" ]; then
-	# Use a public API to get our public IPv6 address, or fall back to local network configuration.
-	PUBLIC_IPV6=$(get_publicip_from_web_service 6 || get_default_privateip 6)
-fi
-if [ "$PRIMARY_HOSTNAME" = "auto" ]; then
-	# Generate a probably-unique subdomain under our justtesting.email domain.
-	PRIMARY_HOSTNAME=`echo $PUBLIC_IP | sha1sum | cut -c1-5`.$DOMAIN_NAME
-fi
-
-# Save the global options in /etc/majord.conf so that standalone tools know where to look for data
-cat > /etc/majord.conf << EOF;
-DOMAIN_NAME=$DOMAIN_NAME
-PRIMARY_HOSTNAME=$PRIMARY_HOSTNAME
-PUBLIC_IP=$PUBLIC_IP
-PUBLIC_IPV6=$PUBLIC_IPV6
-PRIVATE_IP=$PRIVATE_IP
-PRIVATE_IPV6=$PRIVATE_IPV6
-CSR_COUNTRY=$CSR_COUNTRY
-EOF
+source /etc/majord.conf # load global vars
 
 # create a majordomus user next
 sudo su -c "useradd $MAJORDOMUS_USER -s /bin/bash -m -g sudo"
