@@ -7,7 +7,7 @@ echo "***"
 echo "*** majordomus: installing the build environment"
 echo "***"
 
-sudo ln -s bin/gitreceive /usr/local/bin/gitreceive
+sudo ln -s $MAJORDOMUS_ROOT/bin/gitreceive /usr/local/bin/gitreceive
 sudo gitreceive init
 
 sudo mkdir -p $MAJORDOMUS_DATA/git

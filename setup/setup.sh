@@ -14,7 +14,7 @@ echo "*** majordomus: updating ubuntu first"
 echo "***"
 
 hide_output apt-get update
-#hide_output apt-get -y upgrade
+hide_output apt-get -y upgrade
 
 # install some basic
 apt_install unzip curl sysstat build-essential git
@@ -30,10 +30,9 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 
-if [ -f "/etc/majord.conf" ]; then
-	source /etc/majord.conf # load global vars
-fi
-
+# load global vars
+source /etc/majord.conf
+ 
 # Automatic configuration, e.g. as used in our Vagrant configuration.
 if [ "$PUBLIC_IP" = "auto" ]; then
 	# Use a public API to get our public IP address, or fall back to local network configuration.
