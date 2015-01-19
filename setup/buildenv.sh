@@ -20,7 +20,7 @@ if [ ! -d "/home/git" ]; then
 	
 	# replace the default script with our receiver script
 	sudo rm /home/git/receiver
-	sudo ln -s $MAJORDOMUS_ROOT/conf/receiver /home/git/receiver
+	sudo ln -s $MAJORDOMUS_ROOT/bin/receiver /home/git/receiver
 fi
 
 # back to the origin
