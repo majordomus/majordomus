@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 
-# functions used in the scripts
-source setup/functions.sh
-
 echo "***"
 echo "*** majordomus: installing the build environment"
 echo "***"
 
-sudo ln -s $MAJORDOMUS_ROOT/bin/gitreceive /usr/local/bin/gitreceive
-sudo gitreceive init
+cd $MAJORDOMUS_ROOT
+source setup/functions.sh # load our functions
+source /etc/majord.conf # load global vars
 
-sudo mkdir -p $MAJORDOMUS_DATA/git
-sudo chmod 777 $MAJORDOMUS_DATA/git
+sudo ln -s $MAJORDOMUS_ROOT/bin/gitreceive /usr/local/bin/gitreceive
+
+if [ ! -z "/home/git/receiver"]; then
+	sudo gitreceive init
+	sudo mkdir -p $MAJORDOMUS_DATA/git
+	sudo chmod 777 $MAJORDOMUS_DATA/git
+fi
+
 sudo cp conf/receiver /home/git/receiver
 
 # back to the origin
