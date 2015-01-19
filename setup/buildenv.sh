@@ -7,10 +7,7 @@ echo "***"
 echo "*** majordomus: installing the build environment"
 echo "***"
 
-hide_output wget https://raw.githubusercontent.com/majordomus/gitreceive/master/gitreceive
-sudo chmod +x gitreceive
-sudo mv gitreceive /usr/local/bin/gitreceive
-
+sudo ln -s bin/gitreceive /usr/local/bin/gitreceive
 sudo gitreceive init
 
 sudo mkdir -p $MAJORDOMUS_DATA/git

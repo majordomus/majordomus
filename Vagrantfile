@@ -18,6 +18,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # expose the project folder for development
   config.vm.synced_folder ".", "/opt/majordomus/majord"
   
+  # ssh ports pinned to the default
+  config.ssh.port = 22
+  config.ssh.guest_port = 22
+  
   # setup the network
   config.vm.hostname = "#{NODE_NAME}.#{CLUSTER_BASE_NAME}"
   config.vm.network "private_network", ip: NODE_IP

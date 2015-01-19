@@ -14,7 +14,7 @@ echo "*** majordomus: updating ubuntu first"
 echo "***"
 
 hide_output apt-get update
-hide_output apt-get -y upgrade
+#hide_output apt-get -y upgrade
 
 # install some basic
 apt_install unzip curl sysstat build-essential git
@@ -65,21 +65,11 @@ sudo chpasswd << 'END'
 majord:majord
 END
 
-# always install ruby
-source setup/ruby.sh
-
-# install additional languages if needed
-if [ -z "$DISABLE_DEVTOOLS" ]; then
-	source setup/golang.sh
-	source setup/nodejs.sh
-fi
-
 echo "***"
 echo "*** majordomus: installing services"
 echo "***"
 
 source setup/system.sh
-#source setup/dns.sh
 source setup/ssl.sh
 source setup/web.sh
 source setup/docker.sh
