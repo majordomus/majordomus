@@ -27,10 +27,11 @@ if [ ! -d "/home/git" ]; then
 fi
 
 # install & build buildstep
-sudo git clone https://github.com/majordomus/buildstep.git --branch master --single-branch /opt/majordomus/buildstep
-cd /opt/majordomus/buildstep && sudo make build
+
+sudo git clone https://github.com/majordomus/buildstep.git --branch master --single-branch $MAJORDOMUS_BASE/buildstep
+cd $MAJORDOMUS_BASE/buildstep && sudo make build
 if [ ! -L "/usr/local/bin/buildstep" ]; then
-	sudo ln -s /opt/majordomus/buildstep/buildstep /usr/local/bin/buildstep
+	sudo ln -s $MAJORDOMUS_BASE/buildstep/buildstep /usr/local/bin/buildstep
 fi
 
 # back to the origin

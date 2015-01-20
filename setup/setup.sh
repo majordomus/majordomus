@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # majordomus root location
+MAJORDOMUS_BASE=/opt/majordomus
 MAJORDOMUS_ROOT=/opt/majordomus/majord
 MAJORDOMUS_DATA=/opt/majordomus/majord-data
 MAJORDOMUS_USER=majord
