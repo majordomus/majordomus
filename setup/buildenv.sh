@@ -8,6 +8,8 @@ cd $MAJORDOMUS_ROOT
 source setup/functions.sh # load our functions
 source /etc/majord.conf # load global vars
 
+# install & config gitreceive
+
 if [ ! -L "/usr/local/bin/gitreceive" ]; then
 	sudo ln -s $MAJORDOMUS_ROOT/bin/gitreceive /usr/local/bin/gitreceive
 fi
@@ -22,6 +24,13 @@ if [ ! -d "/home/git" ]; then
 	# replace the default script with our receiver script
 	sudo rm /home/git/receiver
 	sudo ln -s $MAJORDOMUS_ROOT/bin/receiver /home/git/receiver
+fi
+
+# install & build buildstep
+sudo git clone https://github.com/majordomus/buildstep.git --branch master --single-branch /opt/majordomus/buildstep
+cd /opt/majordomus/buildstep && sudo make build
+if [ ! -L "/usr/local/bin/buildstep" ]; then
+	sudo ln -s /opt/majordomus/buildstep/buildstep /usr/local/bin/buildstep
 fi
 
 # back to the origin
