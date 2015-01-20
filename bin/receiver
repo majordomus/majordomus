@@ -1,25 +1,24 @@
 #!/bin/bash
 
-#URL=http://requestb.in/rlh4znrl
-#echo "----> Posting to $URL ..."
-#curl \
-#  -X 'POST' \
-#  -F "repository=$1" \
-#  -F "revision=$2" \
-#  -F "username=$3" \
-#  -F "fingerprint=$4" \
-#  -F contents=@- \
-#  --silent $URL
+#  repository=$1
+#  revision=$2
+#  username=$3
+#  fingerprint=$4
+#  contents=@
+
+# load global vars
+source /etc/majord.conf
 
 REPO=/opt/majordomus/majord-data/git/$1
 
-echo "----> Receiving repository $1 ..."
 mkdir -p $REPO && cat | tar -x -C $REPO
 
-echo "----> Stored new/updated files in $REPO" 
+echo "----> Receiving new/updated files for '$1'" 
 
 if [ -f "$REPO/Dockerfile" ]; then
-	echo "----> Dockerfile"
+	echo "----> Building docker image"
+	cd $REPO && docker build -t $ORGANIZATION/$1 .
 else
-	echo "----> Something else"
+	echo "----> Something else. $1 $2 $3"
+	docker images
 fi

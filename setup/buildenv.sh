@@ -17,6 +17,7 @@ if [ ! -d "/home/git" ]; then
 	sudo chmod 777 $MAJORDOMUS_DATA/git
 	
 	sudo gitreceive init
+	sudo gpasswd -a git docker
 	
 	# replace the default script with our receiver script
 	sudo rm /home/git/receiver
