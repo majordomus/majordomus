@@ -19,6 +19,7 @@ if [ -f "$REPO/Dockerfile" ]; then
 	echo "----> Building docker image"
 	cd $REPO && docker build -t $ORGANIZATION/$1 .
 else
-	echo "----> Something else. $1 $2 $3"
-	docker images
+	echo "----> No Dockerfile available. Please provide one and push again!"
 fi
+
+echo "----> DONE . . ." 

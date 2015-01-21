@@ -51,8 +51,8 @@ source setup/system.sh
 source setup/ssl.sh
 source setup/web.sh
 source setup/docker.sh
-source setup/consul.sh
 source setup/buildenv.sh
+source setup/consul.sh
 
 echo "***"
 echo "*** majordomus: cleanup"
