@@ -43,6 +43,11 @@ sudo chpasswd << 'END'
 majord:majord
 END
 
+# create a couple of directories first
+sudo mkdir -p $MAJORDOMUS_DATA/docker/tmp
+sudo mkdir -p $MAJORDOMUS_DATA/docker/images
+sudo mkdir -p $MAJORDOMUS_DATA/git
+
 echo "***"
 echo "*** majordomus: installing services"
 echo "***"

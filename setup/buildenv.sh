@@ -26,13 +26,9 @@ if [ ! -d "/home/git" ]; then
 	sudo ln -s $MAJORDOMUS_ROOT/bin/receiver /home/git/receiver
 fi
 
-# install & build buildstep
-
-#sudo git clone https://github.com/majordomus/buildstep.git --branch master --single-branch $MAJORDOMUS_BASE/buildstep
-#cd $MAJORDOMUS_BASE/buildstep && sudo make build
-#if [ ! -L "/usr/local/bin/buildstep" ]; then
-#	sudo ln -s $MAJORDOMUS_BASE/buildstep/buildstep /usr/local/bin/buildstep
-#fi
+# pull some basic images
+sudo docker pull getmajordomus/majord-ruby
+sudo docker pull getmajordomus/majord-rails
 
 # back to the origin
 cd $MAJORDOMUS_ROOT
