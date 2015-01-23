@@ -26,9 +26,5 @@ if [ ! -d "/home/git" ]; then
 	sudo ln -s $MAJORDOMUS_ROOT/bin/receiver /home/git/receiver
 fi
 
-# pull some basic images
-sudo docker pull getmajordomus/majord-ruby
-sudo docker pull getmajordomus/majord-rails
-
 # back to the origin
 cd $MAJORDOMUS_ROOT
