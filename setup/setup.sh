@@ -47,6 +47,7 @@ END
 sudo mkdir -p $MAJORDOMUS_DATA/docker/tmp
 sudo mkdir -p $MAJORDOMUS_DATA/docker/images
 sudo mkdir -p $MAJORDOMUS_DATA/git
+sudo mkdir -p $MAJORDOMUS_DATA/tmp
 
 echo "***"
 echo "*** majordomus: installing services"
