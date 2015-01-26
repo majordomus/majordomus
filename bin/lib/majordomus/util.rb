@@ -36,18 +36,6 @@ module Majordomus
     end
   end # request_post
   
-  # create a container instance (docker gem)
-  def container?(name_or_id)
-    Docker.url = docker_url
-    Docker::Container.get(name_or_id)
-  end
-  
-  # create an image instance (docker gem)
-  def image?(name_or_id)
-    Docker.url = docker_url
-    Docker::Image.get(name_or_id)
-  end
-  
   def check_for_errors(ret)
     error = nil
     parts = ret[1].split('{"errorDetail":')
@@ -57,6 +45,6 @@ module Majordomus
     error
   end
   
-  module_function :request_params, :request_get, :request_post, :container?, :image?, :check_for_errors
+  module_function :request_params, :request_get, :request_post, :check_for_errors
   
 end

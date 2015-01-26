@@ -20,7 +20,7 @@ require 'majordomus'
 #p ARGV
 
 image = "#{ARGV[1]}/#{ARGV[2]}:latest"
-cname = "#{ARGV[2]}.#{ARGV[1]}"
+cname = "#{ARGV[1]}.#{ARGV[2]}"
 
 id = Majordomus::lookup_image_id image
 
