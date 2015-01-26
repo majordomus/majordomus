@@ -16,8 +16,8 @@ mkdir -p $REPO && cat | tar -x -C $REPO
 echo "----> Receiving new/updated files for '$1'" 
 
 if [ -f "$REPO/Dockerfile" ]; then
-	echo "----> Building docker image"
-	cd $REPO && docker build -t $ORGANIZATION/$1 .
+	echo "----> Building docker image '$3/$1'"
+	cd $REPO && docker build -t $3/$1 .
 else
 	echo "----> No Dockerfile available. Please provide one and push again!"
 fi
