@@ -58,3 +58,11 @@ if [ -z "$DISABLE_FIREWALL" ]; then
 
 	ufw --force enable;
 fi
+
+#
+# WARNING: this is only for Ubuntu 14.10 or newer !!!
+#
+# We are replacing the 'old' upstart with systemd ...
+#
+
+apt_install systemd-sysv
