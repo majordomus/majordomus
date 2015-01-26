@@ -66,3 +66,4 @@ echo "*** majordomus: cleanup"
 echo "***"
 
 sudo apt-get clean
+sudo apt-get -y autoremove
