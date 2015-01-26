@@ -60,9 +60,7 @@ if [ -z "$DISABLE_FIREWALL" ]; then
 fi
 
 #
-# WARNING: this is only for Ubuntu 14.10 or newer !!!
+# adding supervisor
 #
-# We are replacing the 'old' upstart with systemd ...
-#
-
-apt_install systemd-sysv
+apt_install supervisor
+restart_service nginx supervisor
