@@ -1,4 +1,6 @@
 
+require 'excon'
+
 module Majordomus
   
   def request_params(args, path, method='POST')

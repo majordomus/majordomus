@@ -10,11 +10,11 @@ MAJORDOMUS_ROOT=/opt/majordomus/majord
 MAJORDOMUS_DATA=/opt/majordomus/majord-data
 
 REPO=$MAJORDOMUS_DATA/git/$3/$1
-APP=$3_$1
+APP="$3.$1.yml"
 
 # register the app on first push
-if [ ! -f "$MAJORDOMUS_DATA/apps/$APP.yml" ];then
-	majord create $3 $1
+if [ ! -f "$MAJORDOMUS_DATA/apps/$APP" ];then
+	majord init $3 $1
 fi
 
 echo "----> Receiving new/updated files for '$1'" 

@@ -1,7 +1,6 @@
 
 require 'json'
 require 'yaml'
-require 'excon'
 
 # The top-level module for the Majordomus API
 module Majordomus
@@ -9,7 +8,8 @@ module Majordomus
   require 'majordomus/version'
   require 'majordomus/util'
   require 'majordomus/metadata'
-
+  require 'majordomus/cli'
+  
   def docker_url
     ENV['DOCKER_URL'] || "http://0.0.0.0:6001"
   end
