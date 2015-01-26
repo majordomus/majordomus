@@ -18,8 +18,8 @@ hide_output wget http://ftp.ruby-lang.org/pub/ruby/2.2/ruby-2.2.0.tar.gz
 tar -xzvf ruby-2.2.0.tar.gz
 
 cd ruby-2.2.0
-./configure
-make
+./configure --disable-install-rdoc
+sudo make
 sudo apt-get -y remove ruby
 sudo make install
 

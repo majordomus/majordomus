@@ -1,0 +1,67 @@
+{
+	"Architecture"=>"amd64", 
+	"Author"=>"Michael Kuehl <hello@ratchet.cc>", 
+	"Checksum"=>"tarsum.dev+sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", 
+	"Comment"=>"", 
+	"Config"=>{
+		"AttachStderr"=>false, 
+		"AttachStdin"=>false, 
+		"AttachStdout"=>false, 
+		"Cmd"=>["/run.sh"], 
+		"CpuShares"=>0, 
+		"Cpuset"=>"", 
+		"Domainname"=>"", 
+		"Entrypoint"=>nil, 
+		"Env"=>[
+			"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", 
+			"HOME=/root", 
+			"REPO=git_repo", 
+			"BRANCH=master", 
+			"RAILS_ENV=production", 
+			"RAILS_SERVE_STATIC_FILES=true", 
+			"DB_NAME=production.sqlite3", 
+			"DB_USER=root", "DB_PWD=root", 
+			"DB_HOST=localhost", "DB_PORT=0", 
+			"ADMIN_NAME=admin", "ADMIN_EMAIL=admin@example.com", "ADMIN_PASSWORD=changeme", 
+			"DOMAIN_NAME=example.com", "SECRET_KEY_BASE=36572ec8b9de123fffdfaf79935ddedd1bee63ee2f9b499b56585f4a011cf97b84e3c37ea41617e19dbd93db812fec7cee44fc49cec62ea1bb5c102a6516b85d"
+			], 
+			"ExposedPorts"=>{
+				"3000/tcp"=>{}
+			}, 
+			"Hostname"=>"2338b11efbe1", 
+			"Image"=>"887122e8a503898615bfa854eb5d407480b547931b397d061831e0913f24964e", 
+			"MacAddress"=>"", 
+			"Memory"=>0, 
+			"MemorySwap"=>0, 
+			"NetworkDisabled"=>false, 
+			"OnBuild"=>[], "OpenStdin"=>false, "PortSpecs"=>nil, "StdinOnce"=>false, "Tty"=>false, 
+			"User"=>"", 
+			"Volumes"=>nil, "WorkingDir"=>"/opt/bundle"}, 
+			"Container"=>"a0b47ea0c83e65580303d5da2b8174309d732a3a6fc7fc4ed7888e00bc27fe12", 
+			"ContainerConfig"=>{
+				"AttachStderr"=>false, "AttachStdin"=>false, "AttachStdout"=>false, 
+				"Cmd"=>["/bin/sh", "-c", "#(nop) CMD [/run.sh]"], "CpuShares"=>0, "Cpuset"=>"", 
+				"Domainname"=>"", "Entrypoint"=>nil, "Env"=>["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", 
+					"HOME=/root", "REPO=git_repo", "BRANCH=master", "RAILS_ENV=production", "RAILS_SERVE_STATIC_FILES=true", 
+					"DB_NAME=production.sqlite3", "DB_USER=root", "DB_PWD=root", "DB_HOST=localhost", "DB_PORT=0", 
+					"ADMIN_NAME=admin", "ADMIN_EMAIL=admin@example.com", "ADMIN_PASSWORD=changeme", 
+					"DOMAIN_NAME=example.com", 
+					"SECRET_KEY_BASE=36572ec8b9de123fffdfaf79935ddedd1bee63ee2f9b499b56585f4a011cf97b84e3c37ea41617e19dbd93db812fec7cee44fc49cec62ea1bb5c102a6516b85d"], 
+					"ExposedPorts"=>{"3000/tcp"=>{}}, 
+					"Hostname"=>"2338b11efbe1", 
+					"Image"=>"887122e8a503898615bfa854eb5d407480b547931b397d061831e0913f24964e", "MacAddress"=>"", 
+					"Memory"=>0, "MemorySwap"=>0, "NetworkDisabled"=>false, "OnBuild"=>[], "OpenStdin"=>false, 
+					"PortSpecs"=>nil, "StdinOnce"=>false, "Tty"=>false, "User"=>"", 
+					"Volumes"=>nil, "WorkingDir"=>"/opt/bundle"
+					}, 
+					"Created"=>"2015-01-26T15:16:19.703099337Z", 
+					"DockerVersion"=>"1.4.1", "Id"=>"d4c3e819a72b8af8de271ad6c2a04cf2896c08d3779bc7227c91a9b36697358b", 
+					"Os"=>"linux", "Parent"=>"887122e8a503898615bfa854eb5d407480b547931b397d061831e0913f24964e", 
+					"Size"=>0, "VirtualSize"=>928995260
+				}
+{
+	"AttachStderr"=>false, "AttachStdin"=>false, "AttachStdout"=>false, 
+	"Cmd"=>["/run.sh"], "CpuShares"=>0, "Cpuset"=>"", "Domainname"=>"", "Entrypoint"=>nil, 
+	"Env"=>["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", 
+		"HOME=/root", "REPO=git_repo", "BRANCH=master", "RAILS_ENV=production", "RAILS_SERVE_STATIC_FILES=true", 
+		"DB_NAME=production.sqlite3", "DB_USER=root", "DB_PWD=root", "DB_HOST=localhost", "DB_PORT=0", "ADMIN_NAME=admin", "ADMIN_EMAIL=admin@example.com", "ADMIN_PASSWORD=changeme", "DOMAIN_NAME=example.com", "SECRET_KEY_BASE=36572ec8b9de123fffdfaf79935ddedd1bee63ee2f9b499b56585f4a011cf97b84e3c37ea41617e19dbd93db812fec7cee44fc49cec62ea1bb5c102a6516b85d"], "ExposedPorts"=>{"3000/tcp"=>{}}, "Hostname"=>"2338b11efbe1", "Image"=>"887122e8a503898615bfa854eb5d407480b547931b397d061831e0913f24964e", "MacAddress"=>"", "Memory"=>0, "MemorySwap"=>0, "NetworkDisabled"=>false, "OnBuild"=>[], "OpenStdin"=>false, "PortSpecs"=>nil, "StdinOnce"=>false, "Tty"=>false, "User"=>"", "Volumes"=>nil, "WorkingDir"=>"/opt/bundle"}

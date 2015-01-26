@@ -6,20 +6,27 @@
 #  fingerprint=$4
 #  contents=@
 
-# load global vars
-source /etc/majord.conf
+MAJORDOMUS_ROOT=/opt/majordomus/majord
+MAJORDOMUS_DATA=/opt/majordomus/majord-data
 
-REPO=/opt/majordomus/majord-data/git/$1
+REPO=$MAJORDOMUS_DATA/git/$3/$1
+APP=$3_$1
 
-mkdir -p $REPO && cat | tar -x -C $REPO
+# register the app on first push
+if [ ! -f "$MAJORDOMUS_DATA/apps/$APP.yml" ];then
+	majord create $3 $1
+fi
 
 echo "----> Receiving new/updated files for '$1'" 
+mkdir -p $REPO && cat | tar -x -C $REPO
 
 if [ -f "$REPO/Dockerfile" ]; then
 	echo "----> Building docker image '$3/$1'"
 	cd $REPO && docker build -t $3/$1 .
+	majord build $3 $1
 else
 	echo "----> No Dockerfile available. Please provide one and push again!"
 fi
 
-echo "----> DONE . . ." 
+echo "----> DONE . . ."
+
