@@ -1,7 +1,11 @@
 
 require 'excon'
+require 'base64'
 
 module Majordomus
+  
+  @part_1 = ['angry','sweet','lazy','funny','grumpy','noisy','screaming','raging','silly','laughing']
+  @part_2 = ['stallman','appelbaum','assange','schneier','zimmermann','torvalds','atkinson','dijkstra','goldberg','turing','kay','knuth','ritchie','matsumoto']
   
   def request_params(args, path, method='POST')
     content_type = 'application/json'
@@ -46,7 +50,11 @@ module Majordomus
     end
     error
   end
+    
+  def random_name
+    "#{@part_1[rand(@part_1.length)]}_#{@part_2[rand(@part_2.length)]}"
+  end
   
-  module_function :request_params, :request_get, :request_post, :check_for_errors
+  module_function :request_params, :request_get, :request_post, :check_for_errors, :random_name
   
 end
