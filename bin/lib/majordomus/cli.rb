@@ -50,6 +50,8 @@ module Majordomus
     def open(name)
       puts "*** OPEN #{name}"
       
+      Majordomus::reload_web
+      
       # NAME = organization/name
       
       # move the nginx config to sites-enabled and restart nginx

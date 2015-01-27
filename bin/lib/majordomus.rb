@@ -10,6 +10,7 @@ module Majordomus
   require 'majordomus/consul'
   require 'majordomus/docker'
   require 'majordomus/metadata'
+  require 'majordomus/web'
   require 'majordomus/cli'
   
   def docker_url
