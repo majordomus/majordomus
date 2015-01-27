@@ -19,7 +19,14 @@ module Majordomus
     
     response.status
   end
+   
+  def delete_kv(key)
+    con = Excon.new(consul_url)
+    response = con.delete(:path => "/v1/kv/#{key}")
     
+    return response.status
+  end
+  
   def kv_key?(key)
     con = Excon.new(consul_url)
     response = con.get(:path => "/v1/kv/#{key}")
@@ -37,7 +44,7 @@ module Majordomus
     JSON.parse(response.body) 
   end
   
-  module_function :get_kv, :put_kv, :kv_key?, :kv_keys
+  module_function :get_kv, :put_kv, :delete_kv, :kv_key?, :kv_keys
   
 end
   

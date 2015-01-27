@@ -3,5 +3,4 @@ $LOAD_PATH.unshift("/opt/majordomus/majord/bin/lib") unless $LOAD_PATH.include?(
 
 require 'majordomus'
 
-Majordomus::CLI.start(ARGV)
-
+puts Majordomus::CLI.start(ARGV)

@@ -15,7 +15,6 @@ module Majordomus
     
     desc "create TYPE NAME", "Create the metadata for a new app"
     def create(type,name)
-      puts "*** CREATE #{type}, #{name}"
       # TYPE = static | container
       # NAME = organization/name
       
@@ -28,6 +27,24 @@ module Majordomus
       #   create random_name.conf nginx config and add it to sites-available
       # 5) container:
       # => NAME becomes the image name in the beginning
+      
+      if !(type == 'static') && !(type == 'container')
+        raise Thor::Error.new("Invalid application type '#{type}'. Expected 'static', 'container'. ")
+      end
+      
+      if Majordomus::kv_key? "apps/name/#{name}"
+        raise Thor::Error.new("Application '#{name}' already exists. Use a different name.")
+      end
+      
+      begin
+        rname = Majordomus::random_name
+      end while Majordomus::kv_key? "uname/#{rname}"
+      
+      Majordomus::put_kv "apps/name/#{name}", rname
+      Majordomus::put_kv "uname/#{rname}", name
+      
+      return rname
+      
     end
 
     desc "build NAME", "Build or pull an new image"
@@ -68,10 +85,20 @@ module Majordomus
     
     desc "remove NAME", "Remove the app and all its metadata"
     def remove(name)
-      puts "*** REMOVE #{name}"
       
-      # 1) close NAME
-      # 2) 
+      if !Majordomus::kv_key? "apps/name/#{name}"
+        raise Thor::Error.new("Application '#{name}' does not exist.")
+      end
+      
+      rname = Majordomus::get_kv "apps/name/#{name}"
+      
+      # stop the app
+      
+      # cleanup consul
+      Majordomus::delete_kv "apps/name/#{name}"
+      Majordomus::delete_kv "uname/#{rname}"
+      
+      return rname
     end        
     
   end # class CLI
