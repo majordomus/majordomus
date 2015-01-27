@@ -8,6 +8,7 @@ module Majordomus
   require 'majordomus/version'
   require 'majordomus/util'
   require 'majordomus/consul'
+  require 'majordomus/docker'
   require 'majordomus/metadata'
   require 'majordomus/cli'
   
