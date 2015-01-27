@@ -29,7 +29,11 @@ module Majordomus
     ENV['MAJORDOMUS_DATA'] || "/opt/majordomus/majord-data"
   end
   
-  module_function :docker_url, :consul_url, :majordomus_root, :majordomus_data
+  def domain_name
+    ENV['DOMAIN_NAME'] || "getmajordomus.local"
+  end
+  
+  module_function :docker_url, :consul_url, :majordomus_root, :majordomus_data, :domain_name
   
 end
 

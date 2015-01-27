@@ -18,7 +18,7 @@ module Majordomus
       "internal" => rname,
       "type" => type
     }
-    Majordomus::put_kv "apps/meta/#{rname}", meta.to_s
+    Majordomus::application_metadata! rname, meta
     
     return rname
   end
@@ -38,10 +38,26 @@ module Majordomus
     return rname
   end
   
+  def internal_name?(name)
+    Majordomus::get_kv "apps/name/#{name}"
+  end
+  
+  def name?(rname)
+    Majordomus::get_kv "uname/#{rname}"
+  end
+  
+  def application_metadata?(rname)
+    Majordomus::get_kv "apps/meta/#{rname}"
+  end
+  
+  def application_metadata!(rname, meta)
+    Majordomus::put_kv "apps/meta/#{rname}", meta.to_s
+  end
+  
   def application_exists?(name)
     Majordomus::kv_key? "apps/name/#{name}"
   end
   
-  module_function :create_application, :remove_application, :application_exists?
+  module_function :create_application, :remove_application, :internal_name?, :name?, :application_exists?, :application_metadata?, :application_metadata!
     
 end

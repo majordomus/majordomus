@@ -48,24 +48,29 @@ module Majordomus
     
     desc "open NAME", "Open the app for traffic"
     def open(name)
-      puts "*** OPEN #{name}"
       
+      if !Majordomus::application_exists? name
+        raise Thor::Error.new("Application '#{name}' does not exist.")
+      end
+      
+      rname = Majordomus::internal_name? name
+      
+      Majordomus::create_static_web rname
       Majordomus::reload_web
       
-      # NAME = organization/name
-      
-      # move the nginx config to sites-enabled and restart nginx
-      # random_name.conf, mapped_hostname.conf
     end
     
     desc "close NAME", "Close the app for traffic"
     def close(name)
-      puts "*** CLOSE #{name}"
+      if !Majordomus::application_exists? name
+        raise Thor::Error.new("Application '#{name}' does not exist.")
+      end
       
-      # NAME = organization/name
+      rname = Majordomus::internal_name? name
       
-      # remove the config from sites-enabled and restart nginx
-      # random_name.conf, mapped_hostname.conf
+      Majordomus::remove_static_web rname
+      Majordomus::reload_web
+      
     end
     
     desc "remove NAME", "Remove the app and all its metadata"
