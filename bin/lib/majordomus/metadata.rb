@@ -31,6 +31,7 @@ module Majordomus
     
     # get the random name
     rname = Majordomus::get_kv "apps/name/#{name}"
+    meta = Majordomus::application_metadata? rname
     
     # stop the app
     
@@ -39,7 +40,7 @@ module Majordomus
     Majordomus::delete_kv "uname/#{rname}"
     Majordomus::delete_kv "apps/meta/#{rname}"
     
-    if type == "static"
+    if meta['type'] == "static"
       Majordomus::execute "sudo rm -rf #{majordomus_data}/www/#{rname}"
     end
     
