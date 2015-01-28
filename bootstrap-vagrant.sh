@@ -10,3 +10,6 @@ sudo cp $MAJORDOMUS_ROOT/conf/majord.conf.local /etc/majord.conf
 
 # start the setup
 cd $MAJORDOMUS_ROOT && setup/setup.sh
+
+# chnage ownership to avoid access problems
+sudo chown -R vagrant:vagrant /opt/majordomus/majord-data/
