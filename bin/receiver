@@ -12,21 +12,7 @@ MAJORDOMUS_DATA=/opt/majordomus/majord-data
 REPO=$MAJORDOMUS_DATA/git/$3/$1
 APP="$3.$1.yml"
 
-# register the app on first push
-if [ ! -f "$MAJORDOMUS_DATA/apps/$APP" ];then
-	majord init $3 $1
-fi
-
 echo "----> Receiving new/updated files for '$1'" 
 mkdir -p $REPO && cat | tar -x -C $REPO
-
-if [ -f "$REPO/Dockerfile" ]; then
-	echo "----> Building docker image '$3/$1'"
-	cd $REPO && docker build -t $3/$1 .
-	majord build $3 $1
-else
-	echo "----> No Dockerfile available. Please provide one and push again!"
-fi
-
 echo "----> DONE . . ."
 

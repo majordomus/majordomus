@@ -32,18 +32,13 @@ module Majordomus
 
     desc "build NAME", "Build or pull an new image"
     def build(name)
-      puts "*** BUILD #{name}"
       
-      # NAME = organization/name
-      # 1) look-up random_name based on the NAME. Error if it does not exists
-      # 2) load random_name.yml
-      # 3) static:
-      #   move contents from git/NAME to www/random_name
-      # 4) container:
-      #   if there IS NO Dockerfile => pull NAME from repository
-      #   if there IS a Dockerfile  => build NAME from git/NAME
-      #   introspect image metadata and update the random_name,yml
-      #     - remove missing ENV, add new ENV, keep ENV if content different from metadata
+      if !Majordomus::application_exists? name
+        raise Thor::Error.new("Application '#{name}' does not exist.")
+      end
+      
+      return Majordomus::build_application name
+      
     end
     
     desc "open NAME", "Open the app for traffic"

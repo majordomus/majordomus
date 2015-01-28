@@ -11,6 +11,7 @@ module Majordomus
   require 'majordomus/docker'
   require 'majordomus/metadata'
   require 'majordomus/web'
+  require 'majordomus/build'
   require 'majordomus/cli'
   
   def docker_url

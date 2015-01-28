@@ -24,15 +24,15 @@ server {
 }
 EOF
     File.open("#{Majordomus::majordomus_data}/tmp/#{rname}.conf", "w") {|f| f.write(conf) }
-    `sudo mv #{Majordomus::majordomus_data}/tmp/#{rname}.conf /etc/nginx/sites-enabled/#{rname}.conf`    
+    Majordomus::execute "sudo mv #{Majordomus::majordomus_data}/tmp/#{rname}.conf /etc/nginx/sites-enabled/#{rname}.conf"
   end
   
   def remove_static_web(rname)
-    `sudo rm /etc/nginx/sites-enabled/#{rname}.conf`
+    Majordomus::execute "sudo rm /etc/nginx/sites-enabled/#{rname}.conf"
   end
   
   def reload_web
-    `sudo service nginx reload`
+    Majordomus::execute "sudo service nginx reload"
   end
   
   module_function :create_static_web, :remove_static_web, :reload_web

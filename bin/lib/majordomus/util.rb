@@ -55,6 +55,11 @@ module Majordomus
     "#{@part_1[rand(@part_1.length)]}_#{@part_2[rand(@part_2.length)]}"
   end
   
-  module_function :request_params, :request_get, :request_post, :check_for_errors, :random_name
+  def execute(cmd)
+    puts "----> Executing cmd: #{cmd}"
+    %x[ #{cmd} ]
+  end
+  
+  module_function :request_params, :request_get, :request_post, :check_for_errors, :random_name, :execute
   
 end

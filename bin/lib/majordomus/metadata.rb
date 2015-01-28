@@ -20,6 +20,10 @@ module Majordomus
     }
     Majordomus::application_metadata! rname, meta
     
+    if type == "static"
+      Majordomus::execute "sudo mkdir -p #{majordomus_data}/www/#{rname}"
+    end
+    
     return rname
   end
   
@@ -35,6 +39,10 @@ module Majordomus
     Majordomus::delete_kv "uname/#{rname}"
     Majordomus::delete_kv "apps/meta/#{rname}"
     
+    if type == "static"
+      Majordomus::execute "sudo rm -rf #{majordomus_data}/www/#{rname}"
+    end
+    
     return rname
   end
   
@@ -47,11 +55,11 @@ module Majordomus
   end
   
   def application_metadata?(rname)
-    Majordomus::get_kv "apps/meta/#{rname}"
+    JSON.parse( Majordomus::get_kv("apps/meta/#{rname}"))
   end
   
   def application_metadata!(rname, meta)
-    Majordomus::put_kv "apps/meta/#{rname}", meta.to_s
+    Majordomus::put_kv "apps/meta/#{rname}", meta.to_json
   end
   
   def application_exists?(name)
