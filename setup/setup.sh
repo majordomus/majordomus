@@ -46,7 +46,6 @@ END
 # create a couple of directories first
 sudo mkdir -p $MAJORDOMUS_DATA/docker/tmp
 sudo mkdir -p $MAJORDOMUS_DATA/docker/images
-sudo mkdir -p $MAJORDOMUS_DATA/apps
 sudo mkdir -p $MAJORDOMUS_DATA/git
 sudo mkdir -p $MAJORDOMUS_DATA/tmp
 

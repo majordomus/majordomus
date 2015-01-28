@@ -16,7 +16,6 @@ fi
 
 if [ ! -d "/home/git" ]; then
 	sudo chmod 777 $MAJORDOMUS_DATA/git
-	sudo chmod 777 $MAJORDOMUS_DATA/apps
 	
 	sudo gitreceive init
 	sudo gpasswd -a git docker
@@ -25,9 +24,6 @@ if [ ! -d "/home/git" ]; then
 	sudo rm /home/git/receiver
 	sudo ln -s $MAJORDOMUS_ROOT/bin/receiver /home/git/receiver
 fi
-
-# add the majord script / tool-chain
-sudo gem install docker-api
 
 if [ ! -L "/usr/local/bin/majord" ]; then
 	sudo ln -s $MAJORDOMUS_ROOT/bin/majord.rb /usr/local/bin/majord
