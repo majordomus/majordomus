@@ -43,6 +43,9 @@ sudo chpasswd << 'END'
 majord:majord
 END
 
+sudo addgroup majord
+sudo addgroup majord majord
+
 # create a couple of directories first
 sudo mkdir -p $MAJORDOMUS_DATA/docker/tmp
 sudo mkdir -p $MAJORDOMUS_DATA/docker/images
@@ -67,3 +70,7 @@ echo "***"
 
 sudo apt-get clean
 sudo apt-get -y autoremove
+
+# change ownership and rights in the end 
+sudo chown -R majord:majord /opt/majordomus/majord-data/
+sudo chmod -R 775 /opt/majordomus/majord-data/

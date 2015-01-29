@@ -19,6 +19,7 @@ if [ ! -d "/home/git" ]; then
 	
 	sudo gitreceive init
 	sudo gpasswd -a git docker
+	sudo gpasswd -a git majord
 	
 	# replace the default script with our receiver script
 	sudo rm /home/git/receiver
@@ -28,6 +29,9 @@ fi
 if [ ! -L "/usr/local/bin/majord" ]; then
 	sudo ln -s $MAJORDOMUS_ROOT/bin/majord.rb /usr/local/bin/majord
 fi
+
+# add some missing gems
+sudo gem install excon thor
 
 # back to the origin
 cd $MAJORDOMUS_ROOT
