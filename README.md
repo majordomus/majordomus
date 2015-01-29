@@ -27,6 +27,6 @@ repo, which triggers the custom receiver script.
 
 #### Add a remote to a local repository
 
-    $ git remote add demo git@dev.getmajordomus.local:example
+    $ git remote add majord git@dev.getmajordomus.local:example
 
 The repository `example` will be created on the fly when you push.
