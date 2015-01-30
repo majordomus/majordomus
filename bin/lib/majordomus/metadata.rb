@@ -9,8 +9,8 @@ module Majordomus
     end while Majordomus::kv_key? "uname/#{rname}"
     
     # basic data in the consul index
-    Majordomus::put_kv "apps/name/#{name}", rname
-    Majordomus::put_kv "uname/#{rname}", name
+    Majordomus::name! rname,name
+    Majordomus::internal_name! name,rname
     
     # basic metadata
     meta = {
@@ -37,8 +37,8 @@ module Majordomus
     # stop the app
     
     # cleanup consul
-    Majordomus::delete_kv "apps/name/#{name}"
-    Majordomus::delete_kv "uname/#{rname}"
+    Majordomus::delete_kv "apps/iname/#{name}"
+    Majordomus::delete_kv "apps/cname/#{rname}"
     Majordomus::delete_kv "apps/meta/#{rname}"
     
     if meta['type'] == "static"
@@ -48,12 +48,20 @@ module Majordomus
     return rname
   end
   
+  def internal_name!(name,rname)
+    Majordomus::put_kv "apps/iname/#{name}", rname
+  end
+  
   def internal_name?(name)
-    Majordomus::get_kv "apps/name/#{name}"
+    Majordomus::get_kv "apps/iname/#{name}"
+  end
+  
+  def name!(rname,name)
+    Majordomus::put_kv "apps/iname/#{name}", rname
   end
   
   def name?(rname)
-    Majordomus::get_kv "uname/#{rname}"
+    Majordomus::get_kv "apps/cname/#{rname}"
   end
   
   def application_metadata?(rname)

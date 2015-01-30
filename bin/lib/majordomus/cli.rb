@@ -99,6 +99,10 @@ module Majordomus
       
     end        
     
+    desc "dump NAME", "Dump all metadata for application #{name}"
+    def dump(name)
+    end
+    
   end # class CLI
   
 end

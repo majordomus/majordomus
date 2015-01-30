@@ -16,3 +16,9 @@ Supervisor
 https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-supervisor-on-ubuntu-and-debian-vps
 /etc/supervisor/conf.d/
 
+apps/cname/<rname>							-> canonical name
+apps/iname/<name> 							-> internal name
+apps/meta/<rname>							-> app metadata
+apps/meta/<rname>/env/<key>					-> value
+apps/meta/<rname>/port/<exposed port>		-> mapped port
+
