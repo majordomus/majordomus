@@ -17,6 +17,10 @@ echo "***"
 hide_output apt-get update
 hide_output apt-get -y upgrade
 
+echo "***"
+echo "*** majordomus: basic setup"
+echo "***"
+
 # install some basic
 apt_install unzip curl sysstat build-essential git
 

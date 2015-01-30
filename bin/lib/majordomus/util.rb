@@ -57,7 +57,7 @@ module Majordomus
   
   def execute(cmd)
     puts "----> Executing cmd: #{cmd}"
-    %x[ #{cmd} ]
+    puts %x[ #{cmd} ]
   end
   
   module_function :request_params, :request_get, :request_post, :check_for_errors, :random_name, :execute

@@ -16,7 +16,8 @@ module Majordomus
     meta = {
       "name" => name,
       "internal" => rname,
-      "type" => type
+      "type" => type,
+      "status" => "created"
     }
     Majordomus::application_metadata! rname, meta
     
@@ -60,13 +61,32 @@ module Majordomus
   end
   
   def application_metadata!(rname, meta)
-    Majordomus::put_kv "apps/meta/#{rname}", meta.to_json
+    @consul_mutex.synchronize do
+      Majordomus::put_kv "apps/meta/#{rname}", meta.to_json
+    end
   end
   
   def application_exists?(name)
     Majordomus::kv_key? "apps/name/#{name}"
   end
   
-  module_function :create_application, :remove_application, :internal_name?, :name?, :application_exists?, :application_metadata?, :application_metadata!
+  def application_status?(rname)
+    Majordomus::application_metadata?(rname)['status']
+  end
+  
+  def application_type?(rname)
+    Majordomus::application_metadata?(rname)['type']
+  end
+  
+  def application_status!(rname,status)
+    meta = Majordomus::application_metadata? rname
+    meta['status'] = status
+    Majordomus::application_metadata! rname, meta
+  end
+  
+  
+  module_function :create_application, :remove_application, :internal_name?, :name?, 
+    :application_exists?, :application_metadata?, :application_metadata!, 
+    :application_status?, :application_status!, :application_type?
     
 end

@@ -14,6 +14,8 @@ module Majordomus
   require 'majordomus/build'
   require 'majordomus/cli'
   
+  @consul_mutex = Mutex.new
+  
   def docker_url
     ENV['MAJORD_DOCKER_URL'] || "http://0.0.0.0:6001"
   end
