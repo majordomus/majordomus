@@ -52,6 +52,11 @@ sudo mkdir -p $MAJORDOMUS_DATA/docker/images
 sudo mkdir -p $MAJORDOMUS_DATA/git
 sudo mkdir -p $MAJORDOMUS_DATA/tmp
 
+echo '# majord settings' >> /etc/profile
+echo 'export MAJORD_DOMAIN_NAME=$DOMAIN_NAME' >> /etc/profile
+echo 'export MAJORD_MAJORDOMUS_ROOT=$MAJORDOMUS_ROOT' >> /etc/profile
+echo 'export MAJORD_MAJORDOMUS_DATA=$MAJORDOMUS_DATA' >> /etc/profile
+
 echo "***"
 echo "*** majordomus: installing services"
 echo "***"

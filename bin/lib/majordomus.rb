@@ -15,23 +15,23 @@ module Majordomus
   require 'majordomus/cli'
   
   def docker_url
-    ENV['DOCKER_URL'] || "http://0.0.0.0:6001"
+    ENV['MAJORD_DOCKER_URL'] || "http://0.0.0.0:6001"
   end
 
   def consul_url
-    ENV['CONSUL_URL'] || "http://0.0.0.0:8500"
+    ENV['MAJORD_CONSUL_URL'] || "http://0.0.0.0:8500"
   end
 
   def majordomus_root
-    ENV['MAJORDOMUS_ROOT'] || "/opt/majordomus/majord"
+    ENV['MAJORD_MAJORDOMUS_ROOT'] || "/opt/majordomus/majord"
   end
   
   def majordomus_data
-    ENV['MAJORDOMUS_DATA'] || "/opt/majordomus/majord-data"
+    ENV['MAJORD_MAJORDOMUS_DATA'] || "/opt/majordomus/majord-data"
   end
   
   def domain_name
-    ENV['DOMAIN_NAME'] || "getmajordomus.local"
+    ENV['MAJORD_DOMAIN_NAME'] || "getmajordomus.local"
   end
   
   module_function :docker_url, :consul_url, :majordomus_root, :majordomus_data, :domain_name
