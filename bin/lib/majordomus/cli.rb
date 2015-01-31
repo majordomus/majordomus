@@ -101,6 +101,13 @@ module Majordomus
     
     desc "dump NAME", "Dump all metadata for application #{name}"
     def dump(name)
+      
+      if !Majordomus::application_exists? name
+        raise Thor::Error.new("Application '#{name}' does not exist.")
+      end
+      
+      Majordomus::dump name
+      ""
     end
     
   end # class CLI

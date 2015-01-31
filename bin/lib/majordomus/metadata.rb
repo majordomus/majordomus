@@ -9,7 +9,7 @@ module Majordomus
     end while Majordomus::kv_key? "uname/#{rname}"
     
     # basic data in the consul index
-    Majordomus::name! rname,name
+    Majordomus::canonical_name! rname, name
     Majordomus::internal_name! name,rname
     
     # basic metadata
@@ -31,7 +31,7 @@ module Majordomus
   def remove_application(name)
     
     # get the random name
-    rname = Majordomus::get_kv "apps/name/#{name}"
+    rname = Majordomus::internal_name? name
     meta = Majordomus::application_metadata? rname
     
     # stop the app
@@ -56,11 +56,11 @@ module Majordomus
     Majordomus::get_kv "apps/iname/#{name}"
   end
   
-  def name!(rname,name)
+  def canonical_name!(rname,name)
     Majordomus::put_kv "apps/iname/#{name}", rname
   end
   
-  def name?(rname)
+  def canonical_name?(rname)
     Majordomus::get_kv "apps/cname/#{rname}"
   end
   
@@ -75,7 +75,7 @@ module Majordomus
   end
   
   def application_exists?(name)
-    Majordomus::kv_key? "apps/name/#{name}"
+    Majordomus::kv_key? "apps/iname/#{name}"
   end
   
   def application_status?(rname)
@@ -92,9 +92,33 @@ module Majordomus
     Majordomus::application_metadata! rname, meta
   end
   
+  def dump(name)
+    
+    rname = Majordomus::internal_name? name
+    
+    puts "\nMajordomus version #{Majordomus::VERSION}\n"
+    puts "Application: #{name} -> internal name: #{rname}"
+    puts "Status: #{Majordomus::application_status? rname}"
+    
+    puts "\nMetadata:\n"
+    puts "  #{Majordomus::application_metadata? rname}"
+    
+    puts "\nEnvironment:\n"
+    env_keys = Majordomus::kv_keys? "apps/meta/#{rname}/env"
+    env_keys.each do |e|
+      puts "  ENV['#{e}']=#{Majordomus::get_kv e}"
+    end
+    
+    puts "\nExposed Ports:\n"
+    port_keys = Majordomus::kv_keys? "apps/meta/#{rname}/port"
+    port_keys.each do |p|
+      puts "  #{Majordomus::get_kv p} -> #{p}"
+    end
+    
+  end
   
-  module_function :create_application, :remove_application, :internal_name?, :name?, 
-    :application_exists?, :application_metadata?, :application_metadata!, 
-    :application_status?, :application_status!, :application_type?
+  module_function :create_application, :remove_application, :internal_name?, :internal_name!,
+    :canonical_name?, :canonical_name!, :application_exists?, :application_metadata?, :application_metadata!, 
+    :application_status?, :application_status!, :application_type?, :dump
     
 end

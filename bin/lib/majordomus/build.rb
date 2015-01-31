@@ -35,7 +35,7 @@ module Majordomus
       
       # add ports to metadata
       meta['ports'] = ports
-      port.each do |p|
+      ports.each do |p|
         parts = p.split '/'
         Majordomus::put_kv "apps/meta/#{rname}/port/#{parts[0]}", parts[0]
       end
@@ -43,8 +43,6 @@ module Majordomus
       Majordomus::application_metadata! rname, meta
     
     end
-    
-    puts Majordomus::application_metadata? rname
     
   end
   
