@@ -11,6 +11,7 @@ module Majordomus
     
     def initialize(p1,p2,p3)
       super
+      puts "majordomus version #{Majordomus::VERSION}\n"
     end
     
     desc "create TYPE NAME", "Create the metadata for a new app"

@@ -96,7 +96,6 @@ module Majordomus
     
     rname = Majordomus::internal_name? name
     
-    puts "\nMajordomus version #{Majordomus::VERSION}\n"
     puts "Application: #{name} -> internal name: #{rname}"
     puts "Status: #{Majordomus::application_status? rname}"
     
