@@ -52,6 +52,9 @@ module Majordomus
       Majordomus::execute "sudo rm -rf #{majordomus_data}/www/#{rname}"
     end
     
+    # drop the git repo
+    Majordomus::execute "sudo rm -rf #{majordomus_data}/git/#{name}"
+    
     return rname
   end
   
