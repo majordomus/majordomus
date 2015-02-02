@@ -89,6 +89,24 @@ module Majordomus
       
     end
     
+    desc "config CMD NAME ENV VALUE", "Add/update or remove configuration values"
+    def config(cmd, name,env,value=nil)
+      
+      if !Majordomus::application_exists? name
+        raise Thor::Error.new("Application '#{name}' does not exist.")
+      end
+      
+      rname = Majordomus::internal_name? name
+      
+      if cmd == 'set'
+        Majordomus::config_set rname, env, value
+      elsif cmd == 'remove'
+        Majordomus::config_remove rname, env
+      else
+        raise Thor::Error.new("Unsupported operation '#{cmd}' for command CONFIG")
+      end
+    end
+    
     desc "remove NAME", "Remove the app and all its metadata"
     def remove(name)
       

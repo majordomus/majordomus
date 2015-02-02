@@ -30,14 +30,17 @@ module Majordomus
       # add ENV to metadata
       meta['env'] = env
       env.keys.each do |e|
-        Majordomus::put_kv "apps/meta/#{rname}/env/#{e}", env[e]
+        Majordomus::config_set rname, e, env[e] unless Majordomus::config_value? rname, e
       end
       
       # add ports to metadata
       meta['ports'] = ports
       ports.each do |p|
-        parts = p.split '/'
-        Majordomus::put_kv "apps/meta/#{rname}/port/#{parts[0]}", parts[0]
+        port = p.split('/')[0]
+        key = "apps/meta/#{rname}/port/#{port}"
+        
+        Majordomus::put_kv key, "#{Majordomus::map_port port, rname}" unless Majordomus::kv_key? key
+        
       end
       
       Majordomus::application_metadata! rname, meta
@@ -46,6 +49,15 @@ module Majordomus
     
   end
   
-  module_function :build_application
+  def map_port(port, rname)
+    begin
+      mapped = 20000 + rand(1000)
+    end while Majordomus::kv_key? "ports/#{mapped}"
+    
+    Majordomus::put_kv "ports/#{mapped}", "#{port}/#{rname}"
+    mapped
+  end
+  
+  module_function :build_application, :map_port
   
 end

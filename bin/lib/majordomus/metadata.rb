@@ -92,6 +92,22 @@ module Majordomus
     Majordomus::application_metadata! rname, meta
   end
   
+  def config_set(rname,key,value)
+    Majordomus::put_kv "apps/meta/#{rname}/env/#{key}", "#{value}"
+  end
+  
+  def config_remove(rname,key)
+    Majordomus::delete_kv "apps/meta/#{rname}/env/#{key}"
+  end
+  
+  def config_value?(rname,key)
+    Majordomus::kv_key? "apps/meta/#{rname}/env/#{key}"
+  end
+  
+  def config_value(rname,key)
+    Majordomus::get_kv "apps/meta/#{rname}/env/#{key}"
+  end
+  
   def info(name)
     
     rname = Majordomus::internal_name? name
@@ -137,6 +153,7 @@ module Majordomus
   
   module_function :create_application, :remove_application, :internal_name?, :internal_name!,
     :canonical_name?, :canonical_name!, :application_exists?, :application_metadata?, :application_metadata!, 
-    :application_status?, :application_status!, :application_type?, :info, :list
+    :application_status?, :application_status!, :application_type?, :info, :list, 
+    :config_set, :config_remove, :config_value?, :config_value
     
 end

@@ -4,7 +4,7 @@ require 'base64'
 
 module Majordomus
   
-  @part_1 = ['angry','sweet','lazy','funny','grumpy','noisy','screaming','raging','silly','laughing']
+  @part_1 = ['angry','sweet','lazy','funny','grumpy','noisy','screaming','raging','silly','laughing','dirty','sad','jumping',]
   @part_2 = ['stallman','appelbaum','assange','schneier','zimmermann','torvalds','atkinson','dijkstra','goldberg','turing','kay','knuth','ritchie','matsumoto']
   
   def request_params(args, path, method='POST')
