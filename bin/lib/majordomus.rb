@@ -10,6 +10,7 @@ module Majordomus
   require 'majordomus/consul'
   require 'majordomus/docker'
   require 'majordomus/metadata'
+  require 'majordomus/run'
   require 'majordomus/web'
   require 'majordomus/build'
   require 'majordomus/cli'

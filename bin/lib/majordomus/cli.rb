@@ -42,6 +42,11 @@ module Majordomus
       
     end
     
+    desc "launch NAME", "Create a new container based on the current configuration and launch it"
+    def launch(name)
+      Majordomus::launch_container name
+    end
+    
     desc "open NAME", "Open the app for traffic"
     def open(name)
       
