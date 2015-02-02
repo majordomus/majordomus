@@ -11,7 +11,7 @@ module Majordomus
     
     def initialize(p1,p2,p3)
       super
-      puts "majordomus version #{Majordomus::VERSION}\n"
+      puts "majordomus version #{Majordomus::VERSION}\n\n"
     end
     
     desc "create TYPE NAME", "Create the metadata for a new app"
@@ -100,14 +100,14 @@ module Majordomus
       
     end        
     
-    desc "dump NAME", "Dump all metadata for application #{name}"
-    def dump(name)
+    desc "info NAME", "Dump all metadata for application #{name}"
+    def info(name)
       
       if !Majordomus::application_exists? name
         raise Thor::Error.new("Application '#{name}' does not exist.")
       end
       
-      Majordomus::dump name
+      Majordomus::info name
       ""
     end
     

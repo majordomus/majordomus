@@ -92,7 +92,7 @@ module Majordomus
     Majordomus::application_metadata! rname, meta
   end
   
-  def dump(name)
+  def info(name)
     
     rname = Majordomus::internal_name? name
     
@@ -106,7 +106,7 @@ module Majordomus
     env_keys = Majordomus::kv_keys? "apps/meta/#{rname}/env"
     if env_keys
       env_keys.each do |e|
-        puts "  ENV['#{e}']=#{Majordomus::get_kv e}"
+        puts "  ENV['#{e.split("/",5)[4]}']=#{Majordomus::get_kv e}"
       end
     end
   
@@ -114,7 +114,7 @@ module Majordomus
     port_keys = Majordomus::kv_keys? "apps/meta/#{rname}/port"
     if port_keys
       port_keys.each do |p|
-        puts "  #{Majordomus::get_kv p} -> #{p}"
+        puts "  #{Majordomus::get_kv p} -> #{p.split("/",5)[4]}"
       end
     end
     
@@ -137,6 +137,6 @@ module Majordomus
   
   module_function :create_application, :remove_application, :internal_name?, :internal_name!,
     :canonical_name?, :canonical_name!, :application_exists?, :application_metadata?, :application_metadata!, 
-    :application_status?, :application_status!, :application_type?, :dump, :list
+    :application_status?, :application_status!, :application_type?, :info, :list
     
 end
