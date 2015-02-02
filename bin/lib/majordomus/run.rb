@@ -29,5 +29,11 @@ module Majordomus
      
   end
   
-  module_function :launch_container
+  def start_container(name)
+  end
+  
+  def stop_container(name)
+  end
+  
+  module_function :launch_container, :start_container, :stop_container
 end

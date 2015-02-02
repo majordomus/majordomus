@@ -34,7 +34,13 @@ module Majordomus
     rname = Majordomus::internal_name? name
     meta = Majordomus::application_metadata? rname
     
-    # stop the app
+    if meta['type'] == "static"
+      Majordomus::remove_static_web rname
+    else
+      Majordomus::remove_dynamic_web rname
+      Majordomus::stop_container name
+    end
+    Majordomus::reload_web
     
     # remove port mapping
     ports = Majordomus::defined_ports name
@@ -47,10 +53,6 @@ module Majordomus
     Majordomus::delete_kv "apps/iname/#{name}"
     Majordomus::delete_kv "apps/cname/#{rname}"
     Majordomus::delete_all_kv "apps/meta/#{rname}"
-    
-    if meta['type'] == "static"
-      Majordomus::execute "sudo rm -rf #{majordomus_data}/www/#{rname}"
-    end
     
     # drop the git repo
     Majordomus::execute "sudo rm -rf #{majordomus_data}/git/#{name}"
