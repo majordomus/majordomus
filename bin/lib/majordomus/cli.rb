@@ -111,6 +111,12 @@ module Majordomus
       ""
     end
     
+    desc "list", "List all applications"
+    def list
+      Majordomus::list
+      ""
+    end
+    
   end # class CLI
   
 end
