@@ -191,6 +191,7 @@ module Majordomus
     :canonical_name?, :canonical_name!, :application_exists?, :application_metadata?, :application_metadata!, 
     :application_status?, :application_status!, :application_type?, :info, :list, 
     :config_set, :config_remove, :config_value?, :config_value, 
-    :port_mapped_to, :port_assigned?, :port_exposed?, :map_port, :release_port
+    :port_mapped_to, :port_assigned?, :port_exposed?, :map_port, :release_port,
+    :forward_ip, :forward_port
     
 end

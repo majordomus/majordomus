@@ -56,6 +56,6 @@ EOF
     Majordomus::execute "sudo service nginx reload"
   end
   
-  module_function :create_static_web, :remove_static_web, :reload_web, :remove_dynamic_web
+  module_function :create_static_web, :create_dynamic_web, :remove_static_web, :remove_dynamic_web, :reload_web
   
 end

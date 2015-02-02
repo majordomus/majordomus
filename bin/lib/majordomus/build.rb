@@ -43,7 +43,7 @@ module Majordomus
         Majordomus::map_port rname, port, Majordomus::find_free_port(port) unless Majordomus::port_exposed? rname, port
         
       end
-      meta['forward_port'] = forward_port
+      meta['forward_port'] = Majordomus::port_mapped_to rname, forward_port
       meta['forward_ip'] = '127.0.0.1'
       
       Majordomus::application_metadata! rname, meta
