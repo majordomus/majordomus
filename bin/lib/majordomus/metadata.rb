@@ -36,10 +36,17 @@ module Majordomus
     
     # stop the app
     
+    # remove port mapping
+    ports = Majordomus::defined_ports name
+    ports.each do |p|
+      port = p.split('/')[0]
+      Majordomus::release_port Majordomus::port_mapped_to rname, port
+    end
+    
     # cleanup consul
     Majordomus::delete_kv "apps/iname/#{name}"
     Majordomus::delete_kv "apps/cname/#{rname}"
-    Majordomus::delete_kv "apps/meta/#{rname}"
+    Majordomus::delete_all_kv "apps/meta/#{rname}"
     
     if meta['type'] == "static"
       Majordomus::execute "sudo rm -rf #{majordomus_data}/www/#{rname}"
@@ -107,6 +114,35 @@ module Majordomus
   def config_value(rname,key)
     Majordomus::get_kv "apps/meta/#{rname}/env/#{key}"
   end
+        
+  def port_mapped_to(rname, exposed_port)
+    Majordomus::get_kv "apps/meta/#{rname}/port/#{exposed_port}"
+  end
+  
+  def port_assigned?(port)
+    Majordomus::kv_key? "ports/#{port}"
+  end
+  
+  def port_exposed?(rname, exposed_port)
+    Majordomus::kv_key? "apps/meta/#{rname}/port/#{exposed_port}"
+  end
+  
+  def map_port(rname, exposed_port, mapped_port)
+    Majordomus::put_kv "ports/#{mapped_port}", "#{exposed_port}/#{rname}"
+    Majordomus::put_kv "apps/meta/#{rname}/port/#{exposed_port}", "#{mapped_port}"
+  end
+  
+  def release_port(mapped_port)
+    Majordomus::delete_kv "ports/#{mapped_port}"
+  end
+  
+  def forward_port(rname)
+    Majordomus::application_metadata?(rname)['forward_port']
+  end
+  
+  def forward_ip(rname)
+    Majordomus::application_metadata?(rname)['forward_ip']
+  end
   
   def info(name)
     
@@ -154,6 +190,7 @@ module Majordomus
   module_function :create_application, :remove_application, :internal_name?, :internal_name!,
     :canonical_name?, :canonical_name!, :application_exists?, :application_metadata?, :application_metadata!, 
     :application_status?, :application_status!, :application_type?, :info, :list, 
-    :config_set, :config_remove, :config_value?, :config_value
+    :config_set, :config_remove, :config_value?, :config_value, 
+    :port_mapped_to, :port_assigned?, :port_exposed?, :map_port, :release_port
     
 end

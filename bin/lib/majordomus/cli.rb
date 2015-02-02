@@ -58,7 +58,7 @@ module Majordomus
       if Majordomus::application_type?(rname) == "static"
         Majordomus::create_static_web rname
       else
-        Majordomus::create_dynamic_web rname, ip, port
+        Majordomus::create_dynamic_web rname
       end
       
       Majordomus::reload_web

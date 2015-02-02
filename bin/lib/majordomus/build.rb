@@ -16,7 +16,7 @@ module Majordomus
       dockerfile = "#{repo}/Dockerfile"
       
       if File.exists? dockerfile 
-        Majordomus::execute "cd #{repo} && docker build #{name} ."
+        Majordomus::execute "cd #{repo} && docker build -t #{name} ."
       else
         Majordomus::execute "docker pull #{name}"
       end
@@ -33,15 +33,18 @@ module Majordomus
         Majordomus::config_set rname, e, env[e] unless Majordomus::config_value? rname, e
       end
       
-      # add ports to metadata
+      # add ports to metadata and detect any 'forwardable' ports e.g. 80,3000 etc
+      forward_port = ""
       meta['ports'] = ports
       ports.each do |p|
         port = p.split('/')[0]
-        key = "apps/meta/#{rname}/port/#{port}"
+        forward_port = port if ['80','8080','3000'].include? port
         
-        Majordomus::put_kv key, "#{Majordomus::map_port port, rname}" unless Majordomus::kv_key? key
+        Majordomus::map_port rname, port, Majordomus::find_free_port(port) unless Majordomus::port_exposed? rname, port
         
       end
+      meta['forward_port'] = forward_port
+      meta['forward_ip'] = '127.0.0.1'
       
       Majordomus::application_metadata! rname, meta
     
@@ -49,15 +52,13 @@ module Majordomus
     
   end
   
-  def map_port(port, rname)
+  def find_free_port(port)
     begin
       mapped = 20000 + rand(1000)
-    end while Majordomus::kv_key? "ports/#{mapped}"
-    
-    Majordomus::put_kv "ports/#{mapped}", "#{port}/#{rname}"
+    end while Majordomus::port_assigned? mapped
     mapped
   end
   
-  module_function :build_application, :map_port
+  module_function :build_application, :find_free_port
   
 end

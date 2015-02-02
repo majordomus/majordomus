@@ -27,7 +27,7 @@ EOF
     Majordomus::execute "sudo mv #{Majordomus::majordomus_data}/tmp/#{rname}.conf /etc/nginx/sites-enabled/#{rname}.conf"
   end
   
-  def create_dynamic_web(rname, forward_ip, forward_port)
+  def create_dynamic_web(rname)
       conf = <<-EOF
 server {
   listen 80;
@@ -35,7 +35,7 @@ server {
   server_name #{rname}.#{Majordomus::domain_name};
   
   location / {
-    proxy_pass http://#{forward_ip}:#{forward_port};
+    proxy_pass http://#{Majordomus::forward_ip rname}:#{Majordomus::forward_port rname};
     proxy_set_header X-Forwarded-For $remote_addr;
   }
 }
