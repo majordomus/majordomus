@@ -27,7 +27,7 @@ module Majordomus
     Majordomus::domain_add rname, "#{rname}.#{Majordomus::domain_name}"
     
     if type == "static"
-      Majordomus::execute "sudo mkdir -p #{majordomus_data}/www/#{rname}"
+      Majordomus::execute "sudo mkdir -p #{Majordomus::majordomus_data}/www/#{rname}"
     end
     
     return rname
@@ -58,7 +58,7 @@ module Majordomus
     Majordomus::delete_all_kv "apps/meta/#{rname}"
     
     # drop the git repo
-    Majordomus::execute "sudo rm -rf #{majordomus_data}/git/#{name}"
+    Majordomus::execute "sudo rm -rf #{Majordomus::majordomus_data}/git/#{name}"
     
     return rname
   end
@@ -69,12 +69,12 @@ module Majordomus
     meta = Majordomus::application_metadata? rname
     
     if meta['type'] == 'static'
-      Majordomus::execute "sudo rm -rf #{majordomus_data}/www/#{rname} && sudo cp -rf #{majordomus_data}/git/#{name}/ #{majordomus_data}/www/#{rname}"
+      Majordomus::execute "sudo rm -rf #{Majordomus::majordomus_data}/www/#{rname} && sudo cp -rf #{Majordomus::majordomus_data}/git/#{name}/ #{Majordomus::majordomus_data}/www/#{rname}"
     else
       
       # build or pull an image
       
-      repo = "#{majordomus_data}/git/#{name}"
+      repo = "#{Majordomus::majordomus_data}/git/#{name}"
       dockerfile = "#{repo}/Dockerfile"
       
       if File.exists? dockerfile 
