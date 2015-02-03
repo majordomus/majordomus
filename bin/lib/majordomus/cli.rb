@@ -16,8 +16,6 @@ module Majordomus
     
     desc "create TYPE NAME", "Create the metadata for a new app"
     def create(type,name)
-      # TYPE = static | container
-      # NAME = organization/name
             
       if !(type == 'static') && !(type == 'container')
         raise Thor::Error.new("Invalid application type '#{type}'. Expected 'static', 'container'. ")
