@@ -24,7 +24,7 @@ module Majordomus
       end
     end
     
-    cmd = "docker run -d --name='#{rname}' --dns=8.8.8.8 #{e} #{p} #{name}"
+    cmd = "docker create --name='#{rname}' #{e} #{p} #{name}"
     Majordomus::execute cmd
      
   end

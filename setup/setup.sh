@@ -55,6 +55,7 @@ sudo mkdir -p $MAJORDOMUS_DATA/docker/tmp
 sudo mkdir -p $MAJORDOMUS_DATA/docker/images
 sudo mkdir -p $MAJORDOMUS_DATA/git
 sudo mkdir -p $MAJORDOMUS_DATA/tmp
+sudo mkdir -p $MAJORDOMUS_DATA/volumes
 
 echo '# majord settings' >> /etc/profile
 echo "export MAJORD_DOMAIN_NAME=$DOMAIN_NAME" >> /etc/profile
