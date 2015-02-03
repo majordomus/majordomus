@@ -27,7 +27,7 @@ module Majordomus
         raise Thor::Error.new("Application '#{name}' already exists. Use a different name.")
       end
       
-      return Majordomus::create_application name, type
+      return Majordomus::application_create name, type
       
     end
 
@@ -60,13 +60,9 @@ module Majordomus
         raise Thor::Error.new("Application '#{name}' is already open for traffic.")
       end
       
-      if Majordomus::application_type?(rname) == "static"
-        Majordomus::create_static_web rname
-      else
-        Majordomus::create_dynamic_web rname
-      end
-      
+      Majordomus::create_site_config rname
       Majordomus::reload_web
+      
       Majordomus::application_status! rname, "open"
       
     end
@@ -83,13 +79,9 @@ module Majordomus
         raise Thor::Error.new("Application '#{name}' is already closed for traffic.")
       end
       
-      if Majordomus::application_type?(rname) == "static"
-        Majordomus::remove_static_web rname
-      else
-        Majordomus::remove_dynamic_web rname
-      end
-      
+      Majordomus::remove_site_config rname
       Majordomus::reload_web
+      
       Majordomus::application_status! rname, "closed"
       
     end
@@ -110,6 +102,25 @@ module Majordomus
       else
         raise Thor::Error.new("Unsupported operation '#{cmd}' for command CONFIG")
       end
+    end
+    
+    desc "domain CMD NAME DOMAIN", "Add or remove a custom domain to the app"
+    def domain(cmd, name, domain)
+      
+      if !Majordomus::application_exists? name
+        raise Thor::Error.new("Application '#{name}' does not exist.")
+      end
+      
+      rname = Majordomus::internal_name? name
+      
+      if cmd == 'add'
+        Majordomus::domain_add rname, domain
+      elsif cmd == 'remove'
+        Majordomus::domain_remove rname, domain
+      else
+        raise Thor::Error.new("Unsupported operation '#{cmd}' for command DOMAIN")
+      end
+      
     end
     
     desc "remove NAME", "Remove the app and all its metadata"

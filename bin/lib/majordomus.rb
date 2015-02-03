@@ -12,7 +12,8 @@ module Majordomus
   require 'majordomus/metadata'
   require 'majordomus/run'
   require 'majordomus/web'
-  require 'majordomus/build'
+  require 'majordomus/application'
+  require 'majordomus/domain'
   require 'majordomus/cli'
   
   @consul_mutex = Mutex.new

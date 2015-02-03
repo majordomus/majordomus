@@ -1,65 +1,6 @@
 
 module Majordomus
   
-  def create_application(name, type)
-    
-    # create a random name for internal use
-    begin
-      rname = Majordomus::random_name
-    end while Majordomus::kv_key? "apps/cname/#{rname}"
-    
-    # basic data in the consul index
-    Majordomus::canonical_name! rname, name
-    Majordomus::internal_name! name,rname
-    
-    # basic metadata
-    meta = {
-      "name" => name,
-      "internal" => rname,
-      "type" => type,
-      "status" => "created"
-    }
-    Majordomus::application_metadata! rname, meta
-    
-    if type == "static"
-      Majordomus::execute "sudo mkdir -p #{majordomus_data}/www/#{rname}"
-    end
-    
-    return rname
-  end
-  
-  def remove_application(name)
-    
-    # get the random name
-    rname = Majordomus::internal_name? name
-    meta = Majordomus::application_metadata? rname
-    
-    if meta['type'] == "static"
-      Majordomus::remove_static_web rname
-    else
-      Majordomus::remove_dynamic_web rname
-      Majordomus::stop_container name
-    end
-    Majordomus::reload_web
-    
-    # remove port mapping
-    ports = Majordomus::defined_ports name
-    ports.each do |p|
-      port = p.split('/')[0]
-      Majordomus::release_port Majordomus::port_mapped_to rname, port
-    end
-    
-    # cleanup consul
-    Majordomus::delete_kv "apps/iname/#{name}"
-    Majordomus::delete_kv "apps/cname/#{rname}"
-    Majordomus::delete_all_kv "apps/meta/#{rname}"
-    
-    # drop the git repo
-    Majordomus::execute "sudo rm -rf #{majordomus_data}/git/#{name}"
-    
-    return rname
-  end
-  
   def internal_name!(name,rname)
     Majordomus::put_kv "apps/iname/#{name}", rname
   end
@@ -192,7 +133,7 @@ module Majordomus
     end
   end
   
-  module_function :create_application, :remove_application, :internal_name?, :internal_name!,
+  module_function :internal_name?, :internal_name!,
     :canonical_name?, :canonical_name!, :application_exists?, :application_metadata?, :application_metadata!, 
     :application_status?, :application_status!, :application_type?, :info, :list, 
     :config_set, :config_remove, :config_value?, :config_value, 

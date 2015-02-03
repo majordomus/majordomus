@@ -1,12 +1,39 @@
 
 module Majordomus
   
-  def create_static_web(rname)
-      conf = <<-EOF
+  def create_site_config(rname)
+    meta = Majordomus::application_metadata? rname
+    type = Majordomus::application_type?(rname)
+    
+    meta['domains'].each do |domain|
+      conf_file = "#{domain.gsub(".","_")}.conf"
+      if type == 'static'
+        config = static_config(rname, domain)
+      else
+        config = dynamic_config(domain, Majordomus::forward_ip(rname), Majordomus::forward_port(rname))
+      end
+      File.open("#{Majordomus::majordomus_data}/tmp/#{conf_file}", "w") { |f| f.write(config) }
+      Majordomus::execute "sudo mv #{Majordomus::majordomus_data}/tmp/#{conf_file} /etc/nginx/sites-enabled/#{conf_file}"
+    end
+  end
+  
+  def remove_site_config(rname)
+    meta = Majordomus::application_metadata? rname
+    meta['domains'].each do |domain|
+      Majordomus::execute "sudo rm /etc/nginx/sites-enabled/#{domain.gsub(".","_")}.conf"
+    end
+  end
+  
+  def reload_web
+    Majordomus::execute "sudo service nginx reload"
+  end
+  
+  def static_config(rname, domain)
+    conf = <<-EOF
 server {
   listen 80;
   
-  server_name #{rname}.#{Majordomus::domain_name};
+  server_name #{domain};
   
   # Expose this directory as static files.
   root #{Majordomus::majordomus_data}/www/#{rname};
@@ -23,39 +50,25 @@ server {
   }
 }
 EOF
-    File.open("#{Majordomus::majordomus_data}/tmp/#{rname}.conf", "w") {|f| f.write(conf) }
-    Majordomus::execute "sudo mv #{Majordomus::majordomus_data}/tmp/#{rname}.conf /etc/nginx/sites-enabled/#{rname}.conf"
+    conf
   end
   
-  def create_dynamic_web(rname)
-      conf = <<-EOF
+  def dynamic_config(domain, forward_ip, forward_port)
+    conf = <<-EOF
 server {
   listen 80;
   
-  server_name #{rname}.#{Majordomus::domain_name};
+  server_name #{domain};
   
   location / {
-    proxy_pass http://#{Majordomus::forward_ip rname}:#{Majordomus::forward_port rname};
+    proxy_pass http://#{forward_ip}:#{forward_port};
     proxy_set_header X-Forwarded-For $remote_addr;
   }
 }
 EOF
-    File.open("#{Majordomus::majordomus_data}/tmp/#{rname}.conf", "w") {|f| f.write(conf) }
-    Majordomus::execute "sudo mv #{Majordomus::majordomus_data}/tmp/#{rname}.conf /etc/nginx/sites-enabled/#{rname}.conf"
+    conf
   end
   
-  def remove_static_web(rname)
-    Majordomus::execute "sudo rm /etc/nginx/sites-enabled/#{rname}.conf"
-  end
-  
-  def remove_dynamic_web(rname)
-    Majordomus::execute "sudo rm /etc/nginx/sites-enabled/#{rname}.conf"
-  end
-  
-  def reload_web
-    Majordomus::execute "sudo service nginx reload"
-  end
-  
-  module_function :create_static_web, :create_dynamic_web, :remove_static_web, :remove_dynamic_web, :reload_web
+  module_function :create_site_config, :remove_site_config, :reload_web, :static_config, :dynamic_config
   
 end

@@ -1,6 +1,68 @@
 
 module Majordomus
   
+  def application_create(name, type)
+    
+    # create a random name for internal use
+    begin
+      rname = Majordomus::random_name
+    end while Majordomus::kv_key? "apps/cname/#{rname}"
+    
+    # basic data in the consul index
+    Majordomus::canonical_name! rname, name
+    Majordomus::internal_name! name,rname
+    
+    # initalize basic metadata
+    meta = {
+      "name" => name,
+      "internal" => rname,
+      "type" => type,
+      "status" => "",
+      "domains" => []
+    }
+    Majordomus::application_metadata! rname, meta
+    
+    # bring the app in a defined state
+    Majordomus::application_status! rname, "created"
+    Majordomus::domain_add rname, "#{rname}.#{Majordomus::domain_name}"
+    
+    if type == "static"
+      Majordomus::execute "sudo mkdir -p #{majordomus_data}/www/#{rname}"
+    end
+    
+    return rname
+  end
+  
+  def remove_application(name)
+    
+    rname = Majordomus::internal_name? name
+    meta = Majordomus::application_metadata? rname
+    
+    # disable and stop the app
+    Majordomus::remove_site_config rname
+    Majordomus::reload_web
+    if meta['type'] == "container"
+      Majordomus::stop_container name
+    end
+    
+    # remove port mapping
+    ports = Majordomus::defined_ports name
+    ports.each do |p|
+      port = p.split('/')[0]
+      Majordomus::release_port Majordomus::port_mapped_to rname, port
+    end
+    
+    # cleanup
+    Majordomus::delete_kv "apps/iname/#{name}"
+    Majordomus::delete_kv "apps/cname/#{rname}"
+    Majordomus::delete_all_kv "apps/meta/#{rname}"
+    
+    # drop the git repo
+    Majordomus::execute "sudo rm -rf #{majordomus_data}/git/#{name}"
+    
+    return rname
+  end
+  
   def build_application(name)
     
     rname = Majordomus::internal_name? name
@@ -59,6 +121,6 @@ module Majordomus
     mapped
   end
   
-  module_function :build_application, :find_free_port
+  module_function :application_create, :remove_application, :build_application, :find_free_port
   
 end
