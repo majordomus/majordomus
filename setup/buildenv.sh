@@ -8,8 +8,10 @@ cd $MAJORDOMUS_ROOT
 source setup/functions.sh # load our functions
 source /etc/majord.conf # load global vars
 
-# install & config gitreceive
+# install basic ruby
+apt_install ruby
 
+# install & config gitreceive
 if [ ! -L "/usr/local/bin/gitreceive" ]; then
 	sudo ln -s $MAJORDOMUS_ROOT/bin/gitreceive /usr/local/bin/gitreceive
 fi
