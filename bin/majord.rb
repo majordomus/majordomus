@@ -63,7 +63,7 @@ def execute(cmd)
 end
 
 def push_static(user, name)
-  execute "sudo rm -rf #{majordomus_data}/www/#{name} && sudo cp -rf #{majordomus_data}/git/#{user}/#{name}/ #{majordomus_data}/www/#{name}"
+  execute "rm -rf #{majordomus_data}/www/#{name} && cp -rf #{majordomus_data}/git/#{user}/#{name}/ #{majordomus_data}/www/#{name}"
 end
 
 def push_container(repo, user, name)
@@ -90,9 +90,9 @@ if cmd == "PUSH"
     config = static_config name, "#{domain}"
     
     File.open("#{majordomus_data}/tmp/#{conf_file}", "w") { |f| f.write(config) }
-    Majordomus::execute "sudo mv #{majordomus_data}/tmp/#{conf_file} /etc/nginx/sites-enabled/#{conf_file}"
+    execute "mv #{majordomus_data}/tmp/#{conf_file} /etc/nginx/sites-enabled/#{conf_file}"
     
-    execute "sudo service nginx restart"
+    #execute "sudo service nginx restart"
   end
   
 elsif cmd == "BUILD"
