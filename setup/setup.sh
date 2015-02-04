@@ -21,9 +21,6 @@ echo "***"
 echo "*** majordomus: basic setup"
 echo "***"
 
-# install some basic
-apt_install unzip curl sysstat build-essential git
-
 # make sure we are on a defined local
 if [ -z `locale -a | grep en_US.utf8` ]; then
     # generate locale if not exists
@@ -49,6 +46,7 @@ END
 
 sudo addgroup majord
 sudo addgroup majord majord
+sudo addgroup root majord
 
 # create a couple of directories first
 sudo mkdir -p $MAJORDOMUS_DATA/docker/tmp
@@ -58,6 +56,7 @@ sudo mkdir -p $MAJORDOMUS_DATA/tmp
 sudo mkdir -p $MAJORDOMUS_DATA/volumes
 
 echo '# majord settings' >> /etc/profile
+echo "export MAJORD_ORGANIZATION=$ORGANIZATION" >> /etc/profile
 echo "export MAJORD_DOMAIN_NAME=$DOMAIN_NAME" >> /etc/profile
 echo "export MAJORD_MAJORDOMUS_ROOT=$MAJORDOMUS_ROOT" >> /etc/profile
 echo "export MAJORD_MAJORDOMUS_DATA=$MAJORDOMUS_DATA" >> /etc/profile
@@ -67,12 +66,11 @@ echo "*** majordomus: installing services"
 echo "***"
 
 source setup/system.sh
+source setup/dns.sh
 source setup/ssl.sh
 source setup/web.sh
 source setup/docker.sh
-source setup/ruby.sh
 source setup/buildenv.sh
-source setup/consul.sh
 
 echo "***"
 echo "*** majordomus: cleanup"

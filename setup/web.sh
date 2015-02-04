@@ -39,10 +39,6 @@ sudo ln -s $MAJORDOMUS_ROOT/app/public $MAJORDOMUS_DATA/www/default
 # move the basic configuration into place
 sudo cp $MAJORDOMUS_ROOT/conf/nginx/nginx.conf /etc/nginx/conf.d/local.conf
 
-# Other nginx settings will be configured by the management service
-# since it depends on what domains we're serving, which we don't know
-# until additional domains have been created.
-
 # Start service
 restart_service nginx
 

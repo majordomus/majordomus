@@ -11,7 +11,7 @@ if [ ! -d $MAJORDOMUS_ROOT ]; then
 	echo "*** majordomus: installing git first . . ."
 	echo "***"
 	
-	sudo apt-get -y install git-core
+	sudo apt-get -y install git
 	
 	echo "***"
 	echo "*** majordomus: pulling the codebase from repo . . ."

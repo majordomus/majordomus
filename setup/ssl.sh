@@ -14,7 +14,7 @@
 # daemon (web_update.py) as needed.
 
 echo "***"
-echo "*** majordomus: creating a first SSL certificate"
+echo "*** majordomus: creating a first SSL certificate for this node"
 echo "***"
 
 cd $MAJORDOMUS_ROOT

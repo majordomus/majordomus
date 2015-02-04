@@ -5,12 +5,15 @@
 #
 
 echo "***"
-echo "*** majordomus: system essentials e.g. git, haveged, ntp, fail2ban, firewall"
+echo "*** majordomus: system essentials e.g. sysstat, build-essential, haveged, ntp, firewall, supervisor"
 echo "***"
 
 cd $MAJORDOMUS_ROOT
 source setup/functions.sh # load our functions
 source /etc/majord.conf # load global vars
+
+# install some basics first
+apt_install unzip curl sysstat build-essential
 
 # * haveged: Provides extra entropy to /dev/random so it doesn't stall
 #	         when generating random numbers for private keys (e.g. during
@@ -31,36 +34,33 @@ APT::Periodic::Unattended-Upgrade "1";
 APT::Periodic::Verbose "1";
 EOF
 
-# Various virtualized environments like Docker and some VPSs don't provide
-# a kernel that supports iptables. To avoid error-like output in these cases,
-# we skip this if the user sets DISABLE_FIREWALL=1.
-if [ -z "$DISABLE_FIREWALL" ]; then
-	
-	echo "***"
-	echo "*** majordomus: enabling firewall"
-	echo "***"
-	
-	# Install `ufw` which provides a simple firewall configuration.
-	apt_install ufw
+echo "***"
+echo "*** majordomus: install and enable firewall"
+echo "***"
 
-	# Allow incoming connections to SSH.
-	ufw_allow ssh;
+# Install `ufw` which provides a simple firewall configuration.
+apt_install ufw
 
-	# ssh might be running on an alternate port. Use sshd -T to dump sshd's
-	# settings, find the port it is supposedly running on, and open that port too.
-	SSH_PORT=$(sshd -T 2>/dev/null | grep "^port " | sed "s/port //")
-	if [ ! -z "$SSH_PORT" ]; then
-		if [ "$SSH_PORT" != "22" ]; then
-			echo Opening alternate SSH port $SSH_PORT. #NODOC
-			ufw_allow $SSH_PORT #NODOC
-		fi
+# Allow incoming connections to SSH.
+ufw_allow ssh;
+
+# ssh might be running on an alternate port. Use sshd -T to dump sshd's
+# settings, find the port it is supposedly running on, and open that port too.
+SSH_PORT=$(sshd -T 2>/dev/null | grep "^port " | sed "s/port //")
+if [ ! -z "$SSH_PORT" ]; then
+	if [ "$SSH_PORT" != "22" ]; then
+		echo Opening alternate SSH port $SSH_PORT. #NODOC
+		ufw_allow $SSH_PORT #NODOC
 	fi
-
-	ufw --force enable;
 fi
+
+ufw --force enable;
 
 #
 # adding supervisor
 #
+echo "***"
+echo "*** majordomus: installing subervisor"
+echo "***"
 apt_install supervisor
 restart_service nginx supervisor

@@ -2,4 +2,4 @@
 # Docker Upstart and SysVinit configuration file
 #
 export TMPDIR="/opt/majordomus/majord-data/docker/tmp"
-DOCKER_OPTS="--dns 8.8.8.8 -g /opt/majordomus/majord-data/docker/images -r=true -H tcp://0.0.0.0:6001 -H unix:///var/run/docker.sock"
+DOCKER_OPTS="--dns 127.0.0.1 -g /opt/majordomus/majord-data/docker/images -r=true -H tcp://0.0.0.0:6001 -H unix:///var/run/docker.sock"
