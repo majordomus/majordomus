@@ -13,6 +13,6 @@ REPO=$MAJORDOMUS_DATA/git/$3/$1
 
 echo "----> Receiving new/updated files for '$1'" 
 mkdir -p $REPO && cat | tar -x -C $REPO
-majord PUSH $REPO $3 $1
+majord push $REPO $3 $1
 echo "----> DONE . . ."
 

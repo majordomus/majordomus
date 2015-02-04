@@ -58,7 +58,7 @@ EOF
 end
 
 def execute(cmd)
-  puts "\n*** Executing: #{cmd}"
+  puts "*** Executing: #{cmd}"
   puts %x[ #{cmd} ]
 end
 
@@ -73,7 +73,7 @@ end
 # parse the command line parameters and do something
 cmd = ARGV[0]
 
-if cmd == "PUSH"
+if cmd == "push"
   
   repo = ARGV[1]
   org = ARGV[2]
@@ -83,20 +83,37 @@ if cmd == "PUSH"
     push_container repo, org, name
   else
     push_static org, name
-    
-    # create nginx config
-    domain = "#{name}.#{domain_name}"
-    conf_file = "#{domain.gsub(".","_")}.conf"
-    config = static_config name, "#{domain}"
-    
-    File.open("#{majordomus_data}/tmp/#{conf_file}", "w") { |f| f.write(config) }
-    execute "mv #{majordomus_data}/tmp/#{conf_file} /etc/nginx/sites-enabled/#{conf_file}"
-    
-    #execute "sudo service nginx restart"
   end
   
-elsif cmd == "BUILD"
-  puts "BUILD"
+elsif cmd == "static"
+  
+  domain = ARGV[1]
+  name = ARGV[2]
+  
+  # create nginx config
+  conf_file = "#{domain.gsub(".","_")}.conf"
+  config = static_config name, domain
+  
+  File.open("#{majordomus_data}/tmp/#{conf_file}", "w") { |f| f.write(config) }
+  execute "sudo mv #{majordomus_data}/tmp/#{conf_file} /etc/nginx/sites-enabled/#{conf_file}"
+  
+  execute "sudo service nginx restart"
+  
+elsif cmd == "proxy"
+  
+  domain = ARGV[1]
+  forward_ip = ARGV[2]
+  forward_port = ARGV[3]
+  
+  # create nginx config
+  conf_file = "#{domain.gsub(".","_")}.conf"
+  config = dynamic_config domain, forward_ip, forward_port
+  
+  File.open("#{majordomus_data}/tmp/#{conf_file}", "w") { |f| f.write(config) }
+  execute "sudo mv #{majordomus_data}/tmp/#{conf_file} /etc/nginx/sites-enabled/#{conf_file}"
+  
+  execute "sudo service nginx restart"
+  
 else
   puts "FOO!"
 end
