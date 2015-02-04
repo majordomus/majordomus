@@ -26,5 +26,9 @@ if [ ! -d "/home/git" ]; then
 	sudo ln -s $MAJORDOMUS_ROOT/bin/receiver /home/git/receiver
 fi
 
+if [ ! -L "/usr/local/bin/majord" ]; then
+	sudo ln -s $MAJORDOMUS_ROOT/bin/majord.rb /usr/local/bin/majord
+fi
+
 # back to the origin
 cd $MAJORDOMUS_ROOT
