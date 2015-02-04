@@ -6,6 +6,9 @@
 #  fingerprint=$4
 #  contents=@
 
+MAJORDOMUS_ROOT=/opt/majordomus/majord
+MAJORDOMUS_DATA=/opt/majordomus/majord-data
+
 REPO=$MAJORDOMUS_DATA/git/$3/$1
 
 echo "----> Receiving new/updated files for '$1'" 
