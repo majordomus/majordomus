@@ -56,10 +56,10 @@ sudo mkdir -p $MAJORDOMUS_DATA/tmp
 sudo mkdir -p $MAJORDOMUS_DATA/volumes
 
 echo '# majord settings' >> /etc/profile
-echo "export MAJORD_ORGANIZATION=$ORGANIZATION" >> /etc/profile
-echo "export MAJORD_DOMAIN_NAME=$DOMAIN_NAME" >> /etc/profile
-echo "export MAJORD_MAJORDOMUS_ROOT=$MAJORDOMUS_ROOT" >> /etc/profile
-echo "export MAJORD_MAJORDOMUS_DATA=$MAJORDOMUS_DATA" >> /etc/profile
+echo "export MAJORDOMUS_ORGANIZATION=$ORGANIZATION" >> /etc/profile
+echo "export MAJORDOMUS_DOMAIN_NAME=$DOMAIN_NAME" >> /etc/profile
+echo "export MAJORDOMUS_ROOT=$MAJORDOMUS_ROOT" >> /etc/profile
+echo "export MAJORDOMUS_DATA=$MAJORDOMUS_DATA" >> /etc/profile
 
 echo "***"
 echo "*** majordomus: installing services"
