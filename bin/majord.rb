@@ -58,7 +58,8 @@ EOF
 end
 
 def execute(cmd)
-  puts "*** EXECUTING: #{cmd}"
+  puts "\n*** Executing: #{cmd}"
+  puts %x[ #{cmd} ]
 end
 
 def push_static(user, name)
@@ -73,12 +74,27 @@ end
 cmd = ARGV[0]
 
 if cmd == "PUSH"
+  
   repo = ARGV[1]
+  org = ARGV[2]
+  name = ARGV[3]
+  
   if File.exists? "#{repo}/Dockerfile"
-    push_container repo, ARGV[2], ARGV[3]
+    push_container repo, org, name
   else
-    push_static ARGV[2], ARGV[3]
+    push_static org, name
+    
+    # create nginx config
+    domain = "#{name}.#{domain_name}"
+    conf_file = "#{domain.gsub(".","_")}.conf"
+    config = static_config name, "#{domain}"
+    
+    File.open("#{majordomus_data}/tmp/#{conf_file}", "w") { |f| f.write(config) }
+    Majordomus::execute "sudo mv #{majordomus_data}/tmp/#{conf_file} /etc/nginx/sites-enabled/#{conf_file}"
+    
+    execute "sudo service nginx restart"
   end
+  
 elsif cmd == "BUILD"
   puts "BUILD"
 else
