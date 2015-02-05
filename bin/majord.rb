@@ -68,7 +68,7 @@ def push_static(user, name)
 end
 
 def push_container(repo, user, name)
-  execute "cd #{repo} && docker build --rm=true --force-rm=false -t #{user}/#{name} ."
+  execute "cd #{repo} && docker build -t #{user}/#{name} ."
 end
 
 # parse the command line parameters and do something
