@@ -50,6 +50,7 @@ server_name #{domain};
 
 location / {
   proxy_pass http://#{forward_ip}:#{forward_port};
+  proxy_set_header Host $host;
   proxy_set_header X-Forwarded-For $remote_addr;
 }
 }
@@ -67,7 +68,7 @@ def push_static(user, name)
 end
 
 def push_container(repo, user, name)
-  execute "cd #{repo} && docker build -t #{user}/#{name} ."
+  execute "cd #{repo} && docker build --rm=true --force-rm=false -t #{user}/#{name} ."
 end
 
 # parse the command line parameters and do something
@@ -115,5 +116,6 @@ elsif cmd == "proxy"
   execute "sudo service nginx restart"
   
 else
-  puts "FOO!"
+  puts "\nmajord 1.0"
+  puts "Usage: TBD"
 end
