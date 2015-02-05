@@ -6,7 +6,6 @@ CREATE DATABASE #{name}_db;
 CREATE USER #{name}_user IDENTIFIED BY '#{pwd}';
 GRANT ALL PRIVILEGES ON #{name}_db.* TO #{name}_user;
 FLUSH PRIVILEGES;
-EXIT;
 EOF
   conf
 end
@@ -16,7 +15,6 @@ def database_drop_script(name)
 DROP USER #{name}_user;
 DROP DATABASE #{name}_db;
 FLUSH PRIVILEGES;
-EXIT;
 EOF
   conf
 end
