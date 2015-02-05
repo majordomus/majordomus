@@ -28,3 +28,7 @@ sudo chmod -R 775 $MAJORDOMUS_DATA/volumes/$1
 sudo addgroup messagebus majord
 
 docker create --name $1 -v $MAJORDOMUS_DATA/volumes/$1/v1:/var/lib/mysql -p 3306:3306 -e MARIADB_PASS="$2" tutum/mariadb
+
+if [ ! -L "/usr/local/bin/majord-db" ]; then
+	sudo ln -s "$MAJORDOMUS_ROOT/add-ons/majord-db.rb" /usr/local/bin/majord-db
+fi
