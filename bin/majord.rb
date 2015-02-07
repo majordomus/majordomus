@@ -64,7 +64,12 @@ def execute(cmd)
 end
 
 def push_static(user, name)
-  execute "rm -rf #{majordomus_data}/www/#{name} && cp -rf #{majordomus_data}/git/#{user}/#{name}/ #{majordomus_data}/www/#{name}"
+  repo = "#{majordomus_data}/git/#{user}/#{name}"
+  if File.directory? "#{repo}/_site"
+    # needed for static sites generated e.g. with Jekyll
+    repo << "/_site"
+  end
+  execute "rm -rf #{majordomus_data}/www/#{name} && cp -rf #{repo}/ #{majordomus_data}/www/#{name}"
 end
 
 def push_container(repo, user, name)
