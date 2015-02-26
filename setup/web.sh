@@ -39,10 +39,9 @@ sudo ln -s $MAJORDOMUS_ROOT/app/public $MAJORDOMUS_DATA/www/default
 # move the basic configuration into place
 sudo cp $MAJORDOMUS_ROOT/conf/nginx/nginx.conf /etc/nginx/conf.d/local.conf
 
-# Start service
-restart_service nginx
-
 # Open ports.
 ufw_allow http
 ufw_allow https
 
+# Start service
+restart_service nginx
