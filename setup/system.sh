@@ -63,4 +63,4 @@ echo "***"
 echo "*** majordomus: installing subervisor"
 echo "***"
 apt_install supervisor
-restart_service supervisor
+restart_servi supervisor
