@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+VERSION = "1.0"
+
 def docker_url
   ENV['MAJORDOMUS_DOCKER_URL'] || "http://0.0.0.0:6001"
 end
@@ -76,6 +78,16 @@ def push_container(repo, user, name)
   execute "cd #{repo} && docker build -t #{user}/#{name} ."
 end
 
+def help
+  puts "majord v#{VERSION}"
+  puts "  usage: majord {push|static|proxy|help} parameters"
+  puts "    push <repository> <organization> <name>"
+  puts "    static <domain> <name>"
+  puts "    proxy <domain> <forward_ip> <forward_port>"
+  puts "    help -> this text."
+end
+
+
 # parse the command line parameters and do something
 cmd = ARGV[0]
 
@@ -120,7 +132,8 @@ elsif cmd == "proxy"
   
   execute "sudo service nginx restart"
   
+elsif cmd == "help"
+  help
 else
-  puts "\nmajord 1.0"
-  puts "Usage: TBD"
+  help
 end
