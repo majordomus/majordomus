@@ -16,5 +16,8 @@ sudo curl -s https://get.docker.io/ubuntu/ | sudo sh
 sudo gpasswd -a ${USER} docker
 sudo gpasswd -a $MAJORDOMUS_USER docker
 
-sudo cp $MAJORDOMUS_ROOT/conf/docker /etc/default/docker
+if [ -f /etc/default/docker]; then
+	sudo cp $MAJORDOMUS_ROOT/conf/docker /etc/default/docker
+fi
+
 restart_service docker
