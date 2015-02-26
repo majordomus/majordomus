@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+VERSION="1.0"
+
 def database_create_script(name, pwd)
     conf = <<-EOF
 CREATE DATABASE #{name}_db;
@@ -22,6 +24,14 @@ end
 def execute(cmd)
   puts "*** Executing: #{cmd}"
   puts %x[ #{cmd} ]
+end
+
+def help
+  puts "majord-db v#{VERSION}"
+  puts "  usage: majord-db {create | drop | help} parameters"
+  puts "    create <dba> <dba_pwd> <name> <pwd>  Creates a new database/user identified by <pwd>. Database=<name>_db, User=<name>_user"
+  puts "    drop <dba> <dba_pwd> <name>  Drops the database/user with <name>_ ..."
+  puts "    help -> this text."
 end
 
 cmd = ARGV[0]
@@ -52,6 +62,8 @@ elsif cmd == "drop"
   
   execute "mysql -u#{admin} -p#{apwd} -h127.0.0.1 -P3306 < #{sql_file}"
   execute "rm #{sql_file}"
+elsif cmd == "help"
+  help
 else
-  puts "majord-db"
+  help
 end
