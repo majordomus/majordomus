@@ -49,6 +49,7 @@ server {
 listen 80;
 
 server_name #{domain};
+client_max_body_size 100M;
 
 location / {
   proxy_pass http://#{forward_ip}:#{forward_port};
