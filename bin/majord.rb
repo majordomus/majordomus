@@ -53,6 +53,7 @@ client_max_body_size 100M;
 
 location / {
   proxy_pass http://#{forward_ip}:#{forward_port};
+  proxy_pass_request_headers on;
   proxy_set_header Host $host;
   proxy_set_header X-Forwarded-For $remote_addr;
 }
