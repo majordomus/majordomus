@@ -60,7 +60,7 @@ ufw --force enable;
 # adding supervisor
 #
 echo "***"
-echo "*** majordomus: installing subervisor"
+echo "*** majordomus: installing supervisor"
 echo "***"
 apt_install supervisor
-restart_servi supervisor
+restart_service supervisor
